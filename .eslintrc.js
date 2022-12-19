@@ -24,6 +24,7 @@ module.exports = {
     },
   },
   rules: {
+    '@typescript-eslint/no-explicit-any': 'error',
     'react/prop-types': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react-hooks/rules-of-hooks': 'warn',

@@ -1,4 +1,25 @@
-const data = {
+export interface ProductItem {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  images: string[];
+}
+
+export interface ProductData {
+  total: number;
+  skip: 0;
+  limit: number;
+  products: ProductItem[];
+}
+
+const data: ProductData = {
   products: [
     {
       id: 1,
@@ -1904,19 +1925,5 @@ const data = {
   skip: 0,
   limit: 100,
 };
-
-interface ProductItem {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  brand: string;
-  category: string;
-  thumbnail: string;
-  images: string[];
-}
 
 export default data;
