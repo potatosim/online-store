@@ -1,0 +1,47 @@
+$background-color: #ffefd5;
+$primary-color: orange;
+$second-color: teal;
+$border: 5px solid teal;
+$border-radius: 0 0 25px 25px;
+
+
+.header {
+  padding: 10px 30px;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: $background-color;
+  border-bottom: $border;
+  border-radius: $border-radius;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+
+  &__img {
+    width: 65px;
+  }
+
+  &__text {
+    margin-left: 20px;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: $primary-color;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.927);
+  }
+}
+
+.total {
+  font-weight: 600;
+  font-size: 1.5rem;
+  &__text {
+    color: $primary-color;
+    text-shadow: 1px 1px 1px #000;
+    letter-spacing: 0.03em;
+  }
+  &__price {
+    color: $second-color;
+  }
+}
