@@ -10,14 +10,15 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
+    // TODO: refactor this code in future (add components instead of tags and use styled())
     <header className={styles.header}>
       <div className={styles.logo}>
-        <img className={styles.logo__img} src={logo} />
-        <h2 className={styles.logo__text}>Online Store</h2>
+        <img className={styles.logoImg} src={logo} />
+        <h2 className={styles.logoText}>Online Store</h2>
       </div>
       <p className={styles.total}>
-        <span className={styles.total__text}>Cart total: </span>
-        <span className={styles.total__price}>€{'0.00'}</span>
+        <span className={styles.totalText}>Cart total: </span>
+        <span className={styles.totalPrice}>€{'0.00'}</span>
       </p>
       <IconButton onClick={() => navigate('/cart')}>
         <Badge badgeContent={0} color="warning" overlap="circular" showZero>
