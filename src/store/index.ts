@@ -1,8 +1,13 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import cartReducer, { CartState } from 'handlers/cartSlice';
 
-export interface ReduxState {}
+export interface ReduxState {
+  cart: CartState;
+}
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  cart: cartReducer,
+});
 
 const store = configureStore<ReduxState>({
   reducer: rootReducer,

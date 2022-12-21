@@ -4,25 +4,16 @@ import { Button } from '@mui/material';
 import SentimentVeryDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentVeryDissatisfiedOutlined';
 import { useNavigate } from 'react-router-dom';
 import styles from './NotFoundPage.module.scss';
+import PageHeader from 'components/PageHeader';
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.typographyWrapper}>
-        <Typography
-          fontWeight={500}
-          fontSize="10rem"
-          variant="h1"
-          sx={{
-            background: 'linear-gradient(to right,#f2580e 0,#f2ca0f 50%,#f2580e 100%)',
-            backgroundClip: 'text',
-            webkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-          }}
-        >
+        <PageHeader fontWeight={500} fontSize="10rem" variant="h1">
           404
-        </Typography>
+        </PageHeader>
         <Typography
           variant="h2"
           fontSize="5rem"
