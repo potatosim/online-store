@@ -1,14 +1,16 @@
 @import 'styles/variables';
 
 .footer {
-  height: 80px;
   padding: 10px 30px;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background: $background-color;
   border-top: $border;
-  border-radius: 25px 25px 0 0;
+
+  & > a > svg {
+    height: 40px;
+    filter: invert(100);
+  }
 }
 
 .logo {

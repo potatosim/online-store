@@ -12,13 +12,13 @@ const LayoutWrapper = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'stretch',
+  overflow: 'hidden',
 }));
 
 const TopContentWrapper = styled(Box)`
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  overflow: hidden;
 `;
 
 const Layout = () => {

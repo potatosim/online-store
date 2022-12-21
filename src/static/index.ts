@@ -1,3 +1,3 @@
-import { ReactComponent as logoRS } from './rs_school.svg';
+import { ReactComponent as LogoRS } from './rs_school.svg';
 
-export { logoRS };
+export { LogoRS };

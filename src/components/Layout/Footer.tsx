@@ -1,8 +1,8 @@
 import { Link } from '@mui/material';
 import React from 'react';
-import rsLogo from 'static/assets/rsLogo.jpg';
+// import rsLogo from 'static/assets/rsLogo.jpg';
 import styles from './Footer.module.scss';
-// import { logoRS } from 'static/index';
+import { LogoRS } from 'static/index';
 import styled from '@emotion/styled';
 
 // const StyledRsLogo = styled(rsLogo)(() => {});
@@ -24,14 +24,14 @@ const StyledLink = styled(Link)`
 `;
 
 const Char = styled('span')`
-  color: teal;
+  color: white;
   margin: 0 5px;
   font-weight: 500;
   font-size: 1.2rem;
 `;
 
 const Year = styled('span')`
-  color: teal;
+  color: white;
   margin-left: 38%;
   font-weight: 500;
   font-size: 1.2rem;
@@ -41,7 +41,7 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <Link href="https://rs.school/js" target="_blank">
-        <img className={styles.logo} src={rsLogo} />
+        <LogoRS />
       </Link>
       <TextWrapper>
         <NamesWrapper>
