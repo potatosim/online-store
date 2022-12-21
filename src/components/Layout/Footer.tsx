@@ -40,7 +40,7 @@ const Year = styled('span')`
 const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <Link href="https://rs.school/js/Z" target="_blank">
+      <Link href="https://rs.school/js" target="_blank">
         <img className={styles.logo} src={rsLogo} />
       </Link>
       <TextWrapper>
