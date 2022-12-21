@@ -1,11 +1,8 @@
 import { Link } from '@mui/material';
-import React from 'react';
-// import rsLogo from 'static/assets/rsLogo.jpg';
-import styles from './Footer.module.scss';
 import { LogoRS } from 'static/index';
+import React from 'react';
 import styled from '@emotion/styled';
-
-// const StyledRsLogo = styled(rsLogo)(() => {});
+import styles from './Footer.module.scss';
 
 const TextWrapper = styled('div')`
   display: flex;
@@ -39,6 +36,7 @@ const Year = styled('span')`
 
 const Footer = () => {
   return (
+    // TODO: refactor this code in future (add components instead of tags and use styled())
     <footer className={styles.footer}>
       <Link href="https://rs.school/js" target="_blank">
         <LogoRS />
