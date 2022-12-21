@@ -4,12 +4,18 @@ import { ProductItem } from 'data';
 export interface ICartItem extends ProductItem {
   count: number;
   productsTotalPrice: number;
+  // index: number;
 }
 
 export interface CartState {
   cartItems: ICartItem[];
   totalPrice: number;
 }
+// const mockCartItems: ICartItem[] = data.products.map((product) => ({
+//   ...product,
+//   count: 1,
+//   productsTotalPrice: product.price,
+// }));
 
 // TODO remove shit
 const mockCartItems = [
