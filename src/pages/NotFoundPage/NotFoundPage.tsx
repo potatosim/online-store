@@ -14,7 +14,6 @@ const NotFoundPage = () => {
           fontWeight={500}
           fontSize="10rem"
           variant="h1"
-          color="#9c27b0"
           sx={{
             background: 'linear-gradient(to right,#f2580e 0,#f2ca0f 50%,#f2580e 100%)',
             backgroundClip: 'text',
@@ -29,7 +28,7 @@ const NotFoundPage = () => {
           fontSize="5rem"
           fontWeight={500}
           sx={{
-            color: 'rgb(0 0 0 / 80%)',
+            color: 'white',
           }}
         >
           Page n
