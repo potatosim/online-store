@@ -66,7 +66,7 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     eqeqeq: ['error', 'always'],
     'no-console': 'warn',
-    quotes: ['error', 'single'],
+    quotes: ['warn', 'single'],
     semi: ['warn', 'always'],
     '@typescript-eslint/naming-convention': [
       'error',

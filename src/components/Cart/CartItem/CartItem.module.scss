@@ -1,0 +1,40 @@
+@import 'styles/variables.scss';
+
+.itemWrapper {
+  min-width: 350px;
+  width: 25%;
+  padding: 16px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.imageWrapper {
+  max-width: 300px;
+  width: 100%;
+  & > div {
+    height: 0;
+    padding-top: 60%;
+  }
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.productProps {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.descriptionItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  padding: 8px 1rem;
+}
