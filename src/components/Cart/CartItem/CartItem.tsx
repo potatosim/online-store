@@ -23,12 +23,14 @@ import percentageFormatter from 'helpers/percentageFormatter';
 import { useAppDispatch } from 'hooks/reduxHooks';
 
 import styles from './CartItem.module.scss';
+import Badge from '@mui/material/Badge';
 
 interface CartItemProps {
   cartItem: ICartItem;
+  index: number;
 }
 
-const CartItem: FC<CartItemProps> = ({ cartItem }) => {
+const CartItem: FC<CartItemProps> = ({ cartItem, index }) => {
   const {
     title,
     description,
@@ -46,9 +48,9 @@ const CartItem: FC<CartItemProps> = ({ cartItem }) => {
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
-
   return (
     <Card elevation={8} className={styles.itemWrapper}>
+      <Badge badgeContent={index} color="secondary" className={styles.cardBadge}></Badge>
       <Paper elevation={12} className={styles.imageWrapper}>
         <CardMedia className={styles.imageWrapper} image={thumbnail} />
       </Paper>
@@ -93,4 +95,4 @@ const CartItem: FC<CartItemProps> = ({ cartItem }) => {
   );
 };
 
-export default CartItem;
+export default React.memo(CartItem);
