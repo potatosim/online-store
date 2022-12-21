@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Header.module.scss';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Badge } from '@mui/material';
-import logo from 'assets/logo.png';
+import logo from 'static/assets/logo.png';
 
 const Header = () => {
   return (

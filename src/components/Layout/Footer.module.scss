@@ -1,0 +1,17 @@
+@import 'styles/variables';
+
+.footer {
+  height: 80px;
+  padding: 10px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: $background-color;
+  border-top: $border;
+  border-radius: 25px 25px 0 0;
+}
+
+.logo {
+  width: 50px;
+  border-radius: 10px;
+}
