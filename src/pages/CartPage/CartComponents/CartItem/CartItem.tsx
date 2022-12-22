@@ -8,13 +8,15 @@ import {
   Rating,
   Typography,
 } from '@mui/material';
-import { ICartItem, decrementCount, incrementCount } from 'handlers/cartSlice';
 import React, { FC, useState } from 'react';
+import { decrementCount, incrementCount } from 'handlers/cartSlice';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import Badge from '@mui/material/Badge';
 import Card from '@mui/material/Card';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import { ICartItem } from 'types/CartItem';
 import ListItemButton from '@mui/material/ListItemButton/ListItemButton';
 import ListItemText from '@mui/material/ListItemText/ListItemText';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
@@ -23,7 +25,6 @@ import percentageFormatter from 'helpers/percentageFormatter';
 import { useAppDispatch } from 'hooks/reduxHooks';
 
 import styles from './CartItem.module.scss';
-import Badge from '@mui/material/Badge';
 
 interface CartItemProps {
   cartItem: ICartItem;
@@ -48,6 +49,7 @@ const CartItem: FC<CartItemProps> = ({ cartItem, index }) => {
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <Card elevation={8} className={styles.itemWrapper}>
       <Badge badgeContent={index} color="secondary" className={styles.cardBadge}></Badge>
