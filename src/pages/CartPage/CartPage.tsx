@@ -1,7 +1,9 @@
-import CartItems from 'components/Cart/CartItems';
 import PageHeader from 'components/PageHeader';
 import { useAppSelector } from 'hooks/reduxHooks';
 import React from 'react';
+import CartItems from './CartComponents/CartItems';
+import CartSummary from './CartComponents/CartSummary';
+import styles from './CartPage.module.scss';
 
 const CartPage = () => {
   const { cartItems } = useAppSelector((state) => state.cart);
@@ -14,7 +16,12 @@ const CartPage = () => {
     );
   }
 
-  return <CartItems cartItems={cartItems} />;
+  return (
+    <div className={styles.cartWrapper}>
+      <CartItems cartItems={cartItems} />
+      <CartSummary />
+    </div>
+  );
 };
 
 export default CartPage;

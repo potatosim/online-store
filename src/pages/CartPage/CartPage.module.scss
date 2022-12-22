@@ -3,3 +3,11 @@
 .emptyCart {
   color: $primary-color;
 }
+
+.cartWrapper {
+  display: flex;
+  padding: 2rem;
+  width: 100%;
+  justify-content: space-between;
+  column-gap: 2rem;
+}

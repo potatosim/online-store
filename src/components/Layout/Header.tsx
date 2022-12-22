@@ -1,16 +1,17 @@
-import React from 'react';
-import styles from './Header.module.scss';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Badge } from '@mui/material';
-import logo from 'static/assets/logo.png';
 import IconButton from '@mui/material/IconButton';
-import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from 'hooks/reduxHooks';
+import React from 'react';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import currencyFormatter from 'helpers/currencyFormatter';
+import logo from 'static/assets/logo.png';
+import { useAppSelector } from 'hooks/reduxHooks';
+import { useNavigate } from 'react-router-dom';
+
+import styles from './Header.module.scss';
 
 const Header = () => {
   const navigate = useNavigate();
-  const { totalPrice } = useAppSelector((state) => state.cart);
+  const { totalPrice, totalCount } = useAppSelector((state) => state.cart);
 
   return (
     // TODO: refactor this code in future (add components instead of tags and use styled())
@@ -24,7 +25,7 @@ const Header = () => {
         <span className={styles.totalPrice}>{currencyFormatter.format(totalPrice)}</span>
       </p>
       <IconButton onClick={() => navigate('/cart')}>
-        <Badge badgeContent={0} color="warning" overlap="circular" showZero>
+        <Badge badgeContent={totalCount} color="warning" overlap="circular" showZero>
           <ShoppingCartIcon
             sx={{
               color: 'orange',

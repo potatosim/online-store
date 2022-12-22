@@ -1,15 +1,17 @@
+import React, { FC, useEffect, useLayoutEffect, useState } from 'react';
+
 import { Box } from '@mui/material';
+import CartItem from 'pages/CartPage/CartComponents/CartItem';
+import { ICartItem } from 'types/CartItem';
 import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper/Paper';
 import TextField from '@mui/material/TextField';
-import React, { FC, useEffect, useLayoutEffect, useState } from 'react';
-import CartItem from 'components/Cart/CartItem';
-import styles from './CartItems.module.scss';
-import { ICartItem } from 'handlers/cartSlice';
-import getPagesCount from 'helpers/getPagesCount';
 import getPageItems from 'helpers/getPageItems';
+import getPagesCount from 'helpers/getPagesCount';
 import useQueryParam from 'hooks/useQueryParam';
 import { useSearchParams } from 'react-router-dom';
+
+import styles from './CartItems.module.scss';
 
 interface CartItemsProps {
   cartItems: ICartItem[];

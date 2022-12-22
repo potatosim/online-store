@@ -1,4 +1,4 @@
-import { ICartItem } from 'handlers/cartSlice';
+import { ICartItem } from 'types/CartItem';
 
 const getPageItems = (items: ICartItem[], limit: number, page: number) => {
   const startIndex = limit * (page - 1);

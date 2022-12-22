@@ -1,24 +1,16 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ProductItem } from 'data';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-export interface ICartItem extends ProductItem {
-  count: number;
-  productsTotalPrice: number;
-  // index: number;
-}
+import { ICartItem } from 'types/CartItem';
+import { LocalStorageKeys } from './../enums/LocalStorageKeys';
+import { ProductItem } from 'types/ProductItem';
 
 export interface CartState {
   cartItems: ICartItem[];
   totalPrice: number;
+  totalCount: number;
 }
-// const mockCartItems: ICartItem[] = data.products.map((product) => ({
-//   ...product,
-//   count: 1,
-//   productsTotalPrice: product.price,
-// }));
 
-// TODO remove shit
-const mockCartItems = [
+const mockCartItems: ICartItem[] = [
   {
     id: 1,
     title: 'iPhone 9',
@@ -103,9 +95,19 @@ const getTotalPrice = (cartItems: ICartItem[]): number => {
   return cartItems.reduce((acc, cur) => acc + cur.price * cur.count, 0);
 };
 
+const getTotalCount = (cartItems: ICartItem[]): number => {
+  return cartItems.reduce((acc, cur) => acc + cur.count, 0);
+};
+
+const dataFromStorage =
+  (JSON.parse(localStorage.getItem(LocalStorageKeys.CartItems) as string) as ICartItem[]) || [];
+
+const initialData = dataFromStorage.length ? dataFromStorage : mockCartItems;
+
 const initialState: CartState = {
-  cartItems: mockCartItems,
-  totalPrice: getTotalPrice(mockCartItems),
+  cartItems: initialData,
+  totalPrice: getTotalPrice(initialData),
+  totalCount: getTotalCount(initialData),
 };
 
 const cartSlice = createSlice({
@@ -120,8 +122,10 @@ const cartSlice = createSlice({
           cartItem.count = cartItem.stock;
         } else {
           state.totalPrice += cartItem.price;
+          state.totalCount += 1;
           cartItem.productsTotalPrice += cartItem.price;
         }
+        localStorage.setItem(LocalStorageKeys.CartItems, JSON.stringify(state.cartItems));
       }
     },
     decrementCount(state, { payload }: PayloadAction<{ id: number }>) {
@@ -130,18 +134,24 @@ const cartSlice = createSlice({
         cartItem.count -= 1;
         state.totalPrice -= cartItem.price;
         cartItem.productsTotalPrice -= cartItem.price;
+        state.totalCount -= 1;
         if (cartItem.count === 0) {
           state.cartItems = state.cartItems.filter((item) => item.id !== payload.id);
         }
+        localStorage.setItem(LocalStorageKeys.CartItems, JSON.stringify(state.cartItems));
       }
     },
     addProductToCart(state, { payload }: PayloadAction<ProductItem>) {
       state.cartItems.push({ ...payload, count: 1, productsTotalPrice: payload.price });
       state.totalPrice += payload.price;
+      state.totalCount += 1;
+      localStorage.setItem(LocalStorageKeys.CartItems, JSON.stringify(state.cartItems));
     },
     removeProductFromCart(state, { payload }: PayloadAction<{ id: number }>) {
       state.cartItems = state.cartItems.filter((item) => item.id !== payload.id);
       state.totalPrice = getTotalPrice(state.cartItems);
+      state.totalCount = getTotalCount(state.cartItems);
+      localStorage.setItem(LocalStorageKeys.CartItems, JSON.stringify(state.cartItems));
     },
   },
 });
