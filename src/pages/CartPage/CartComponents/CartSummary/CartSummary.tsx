@@ -101,8 +101,13 @@ const CartSummary = () => {
             ) : null,
           }}
         />
+        <Typography variant="subtitle1" fontStyle="italic">
+          Try promo codes: 'HANNA' or 'LEON'
+        </Typography>
         {matchedPromo && <AddPromoCode promoCode={matchedPromo} onAddClick={handleAddPromoCode} />}
-        <Button color="warning">Buy now</Button>
+        <Button color="warning" size="large" sx={{ fontSize: '1.5rem' }}>
+          Buy now
+        </Button>
       </CardContent>
     </Card>
   );
