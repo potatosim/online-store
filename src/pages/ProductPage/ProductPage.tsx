@@ -1,6 +1,14 @@
 /* eslint-disable */
 import styled from '@emotion/styled';
-import { Box, Breadcrumbs, IconButton, ImageList, ImageListItem, Typography } from '@mui/material';
+import {
+  Box,
+  Breadcrumbs,
+  IconButton,
+  ImageList,
+  ImageListItem,
+  Rating,
+  Typography,
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import data from 'data';
@@ -9,8 +17,11 @@ import ComponentWithChildren from 'types/ComponentWithChildren';
 import { ProductItem } from 'types/ProductItem';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { addProductToCart, removeProductFromCart } from 'handlers/cartSlice';
+import currencyFormatter from 'helpers/currencyFormatter';
+import percentageFormatter from 'helpers/percentageFormatter';
 
 const PageContent = styled(Box)(() => ({
+  margin: '10px auto',
   display: 'flex',
   flex: '1 1 auto',
   flexDirection: 'column',
@@ -22,10 +33,12 @@ const BreadCrumbs = styled(Breadcrumbs)(() => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  marginBottom: '15px',
+  marginBottom: '20px',
 }));
 
 const MenuLink = styled(Link)(() => ({
+  fontWeight: '500',
+  fontSize: '1.2rem',
   textDecoration: 'none',
   color: 'orange',
   cursor: 'pointer',
@@ -34,7 +47,7 @@ const MenuLink = styled(Link)(() => ({
 const ProductContent = styled(Box)(() => ({
   display: 'flex',
   backgroundColor: 'white',
-  padding: '15px',
+  padding: '20px',
 }));
 
 const ThumbnailWrapper: FC<ComponentWithChildren> = styled(ImageListItem)(() => ({
@@ -68,6 +81,7 @@ const MainImage = styled('img')(() => ({
 }));
 
 const ProductText = styled(Box)(() => ({
+  marginLeft: '20px',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -79,12 +93,14 @@ const ProductAbout = styled(Box)(() => ({
   alignItems: 'start',
 }));
 
+const Span = styled('span')(() => ({}));
+
 const ButtonWrapper = styled(Box)(() => ({
   display: 'flex',
 }));
 
 const ProductPage = () => {
-  const { cartItems } = useAppSelector(state => state.cart);
+  const { cartItems } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const [isProductInCart, setIsProductInCart] = useState<boolean>(false);
   const [product, setProduct] = useState<ProductItem | null>(null);
@@ -95,12 +111,15 @@ const ProductPage = () => {
     setIsProductInCart(cartItems.some((cartItem) => cartItem.id === Number(id)));
   }, [cartItems, id]);
 
-
   // TODO: implement types for useParams
   useEffect(() => {
     if (id) {
       const targetElement = data.products.find((el) => Number(id) === el.id);
-      targetElement ? setProduct(targetElement) : setProduct(null);
+      if (targetElement) {
+        setProduct(targetElement);
+      } else {
+        setProduct(null);
+      }
     }
   }, [id]);
 
@@ -113,8 +132,10 @@ const ProductPage = () => {
       <BreadCrumbs>
         <MenuLink to="/product-details/1">Store</MenuLink>
         <MenuLink to="/product-details/2">{product.category}</MenuLink>
-        <MenuLink to="/3">{product.brand}</MenuLink>
-        <Typography sx={{ color: 'white' }}>{product.title}</Typography>
+        <MenuLink to="/product-details/3">{product.brand}</MenuLink>
+        <Typography sx={{ color: 'white', fontWeight: '500', fontSize: '1.2rem' }}>
+          {product.title}
+        </Typography>
       </BreadCrumbs>
       <ProductContent>
         <ImageList cols={1} rowHeight={100} sx={{ height: '400px' }}>
@@ -130,19 +151,34 @@ const ProductPage = () => {
           <MainImage alt="product photo" src={product.thumbnail} />
         </ImageWrapper>
         <ProductText>
-          <Typography>{product.title}</Typography>
-          <Typography>{product.description}</Typography>
+          <Typography variant="h5" fontWeight={600} textAlign="center">
+            {product.title}
+          </Typography>
+          <Typography
+            sx={{ maxWidth: '320px', textAlign: 'center', margin: '10px auto', fontSize: '1.1rem' }}
+          >
+            {product.description}
+          </Typography>
           <ProductAbout>
-            <Typography>Discount Percentage: {product.discountPercentage}</Typography>
-            <Typography>Rating: {product.rating}</Typography>
+            <Typography>
+              Discount Percentage: {percentageFormatter.format(product.discountPercentage / 100)}
+            </Typography>
+            <Typography>
+              Rating:{' '}
+              <Rating name="read-only" max={5} value={product.rating} precision={0.5} readOnly />
+            </Typography>
             <Typography>Stock: {product.stock}</Typography>
             <Typography>Brand: {product.brand}</Typography>
             <Typography>Category: {product.category}</Typography>
           </ProductAbout>
-          <Typography>€{product.price}</Typography>
+          <Typography variant="h5" fontWeight={600}>
+            {currencyFormatter.format(product.price)}
+          </Typography>
           <ButtonWrapper>
             {isProductInCart ? (
-              <IconButton onClick={() => dispatch(removeProductFromCart({ id: product.id }))}>Remove from cart</IconButton>
+              <IconButton onClick={() => dispatch(removeProductFromCart({ id: product.id }))}>
+                Remove from cart
+              </IconButton>
             ) : (
               <IconButton onClick={() => dispatch(addProductToCart(product))}>
                 Add to cart
