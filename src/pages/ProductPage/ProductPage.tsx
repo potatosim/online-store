@@ -3,9 +3,12 @@ import styled from '@emotion/styled';
 import { Box, Breadcrumbs, IconButton, ImageList, ImageListItem, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import data, { ProductItem } from 'data';
+import data from 'data';
 import { FC } from 'react';
 import ComponentWithChildren from 'types/ComponentWithChildren';
+import { ProductItem } from 'types/ProductItem';
+import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
+import { addProductToCart, removeProductFromCart } from 'handlers/cartSlice';
 
 const PageContent = styled(Box)(() => ({
   display: 'flex',
@@ -81,10 +84,17 @@ const ButtonWrapper = styled(Box)(() => ({
 }));
 
 const ProductPage = () => {
-  const { id } = useParams();
+  const { cartItems } = useAppSelector(state => state.cart);
+  const dispatch = useAppDispatch();
+  const [isProductInCart, setIsProductInCart] = useState<boolean>(false);
   const [product, setProduct] = useState<ProductItem | null>(null);
-  const [num1, setNum1] = useState<number>(42);
-  const [num2, setNum2] = useState<number>(24);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    setIsProductInCart(cartItems.some((cartItem) => cartItem.id === Number(id)));
+  }, [cartItems, id]);
+
 
   // TODO: implement types for useParams
   useEffect(() => {
@@ -107,7 +117,7 @@ const ProductPage = () => {
         <Typography sx={{ color: 'white' }}>{product.title}</Typography>
       </BreadCrumbs>
       <ProductContent>
-        <ImageList cols={1} rowHeight={100} sx={{height: '400px', }}>
+        <ImageList cols={1} rowHeight={100} sx={{ height: '400px' }}>
           {product.images.map((el, i) => {
             return (
               <ThumbnailWrapper key={i}>
@@ -131,7 +141,13 @@ const ProductPage = () => {
           </ProductAbout>
           <Typography>€{product.price}</Typography>
           <ButtonWrapper>
-            <IconButton>Add to cart</IconButton>
+            {isProductInCart ? (
+              <IconButton onClick={() => dispatch(removeProductFromCart({ id: product.id }))}>Remove from cart</IconButton>
+            ) : (
+              <IconButton onClick={() => dispatch(addProductToCart(product))}>
+                Add to cart
+              </IconButton>
+            )}
             <IconButton>Buy now</IconButton>
           </ButtonWrapper>
         </ProductText>
