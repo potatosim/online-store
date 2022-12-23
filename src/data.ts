@@ -43,7 +43,7 @@ const data: ProductData = {
     {
       id: 3,
       title: 'Samsung Universe 9',
-      description: "Samsung's new variant which goes beyond Galaxy to the Universe",
+      description: 'Samsung\'s new variant which goes beyond Galaxy to the Universe',
       price: 1249,
       discountPercentage: 15.46,
       rating: 4.09,
@@ -285,12 +285,12 @@ const data: ProductData = {
       id: 16,
       title: 'Hyaluronic Acid Serum',
       description:
-        "L'OrÃ©al Paris introduces Hyaluron Expert Replumping Serum formulated with 1.5% Hyaluronic Acid",
+        'L\'OrÃ©al Paris introduces Hyaluron Expert Replumping Serum formulated with 1.5% Hyaluronic Acid',
       price: 19,
       discountPercentage: 13.31,
       rating: 4.83,
       stock: 110,
-      brand: "L'Oreal Paris",
+      brand: 'L\'Oreal Paris',
       category: 'skincare',
       thumbnail: 'https://i.dummyjson.com/data/products/16/thumbnail.jpg',
       images: [
@@ -363,7 +363,7 @@ const data: ProductData = {
       id: 20,
       title: 'Freckle Treatment Cream- 15gm',
       description:
-        "Fair & Clear is Pakistan's only pure Freckle cream which helpsfade Freckles, Darkspots and pigments. Mercury level is 0%, so there are no side effects.",
+        'Fair & Clear is Pakistan\'s only pure Freckle cream which helpsfade Freckles, Darkspots and pigments. Mercury level is 0%, so there are no side effects.',
       price: 70,
       discountPercentage: 16.99,
       rating: 4.06,
@@ -729,7 +729,7 @@ const data: ProductData = {
       id: 39,
       title: 'Women Sweaters Wool',
       description:
-        "2021 Custom Winter Fall Zebra Knit Crop Top Women Sweaters Wool Mohair Cos Customize Crew Neck Women' S Crop Top Sweater",
+        '2021 Custom Winter Fall Zebra Knit Crop Top Women Sweaters Wool Mohair Cos Customize Crew Neck Women\' S Crop Top Sweater',
       price: 600,
       discountPercentage: 17.2,
       rating: 4.55,
@@ -861,7 +861,7 @@ const data: ProductData = {
     },
     {
       id: 46,
-      title: "women's shoes",
+      title: 'women\'s shoes',
       description: 'Close: Lace, Style with bottom: Increased inside, Sole Material: Rubber',
       price: 40,
       discountPercentage: 16.96,
@@ -974,7 +974,7 @@ const data: ProductData = {
       id: 52,
       title: 'FREE FIRE T Shirt',
       description:
-        "quality and professional print - It doesn't just look high quality, it is high quality.",
+        'quality and professional print - It doesn\'t just look high quality, it is high quality.',
       price: 10,
       discountPercentage: 14.72,
       rating: 4.52,
@@ -1219,7 +1219,7 @@ const data: ProductData = {
       id: 65,
       title: 'Stainless Steel Wrist Watch',
       description:
-        "Stylish Watch For Man (Luxury) Classy Men's Stainless Steel Wrist Watch - Box Packed",
+        'Stylish Watch For Man (Luxury) Classy Men\'s Stainless Steel Wrist Watch - Box Packed',
       price: 47,
       discountPercentage: 17.79,
       rating: 4.79,
@@ -1258,7 +1258,7 @@ const data: ProductData = {
       id: 67,
       title: 'Fashion Magnetic Wrist Watch',
       description:
-        "Buy this awesome  The product is originally manufactured by the company and it's a top selling product with a very reasonable",
+        'Buy this awesome  The product is originally manufactured by the company and it\'s a top selling product with a very reasonable',
       price: 60,
       discountPercentage: 16.69,
       rating: 4.03,
