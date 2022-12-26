@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import {
   Box,
   Breadcrumbs,
-  IconButton,
+  Button,
   ImageList,
   ImageListItem,
   Rating,
@@ -48,6 +48,7 @@ const ProductContent = styled(Box)(() => ({
   display: 'flex',
   backgroundColor: 'white',
   padding: '20px',
+  borderRadius: '5px',
 }));
 
 const ThumbnailWrapper: FC<ComponentWithChildren> = styled(ImageListItem)(() => ({
@@ -63,6 +64,7 @@ const ThumbnailWrapper: FC<ComponentWithChildren> = styled(ImageListItem)(() => 
 const Thumbnail = styled('img')(() => ({
   width: '100%',
   height: 'auto',
+  cursor: 'pointer',
 }));
 
 const ImageWrapper = styled(Box)(() => ({
@@ -93,17 +95,22 @@ const ProductAbout = styled(Box)(() => ({
   alignItems: 'start',
 }));
 
-const Span = styled('span')(() => ({}));
+const Span = styled('span')(() => ({
+  fontWeight: '700',
+  fontSize: '1.1rem',
+}));
 
 const ButtonWrapper = styled(Box)(() => ({
   display: 'flex',
+  gap: '10px',
 }));
 
 const ProductPage = () => {
-  const { cartItems } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
+  const { cartItems } = useAppSelector((state) => state.cart);
   const [isProductInCart, setIsProductInCart] = useState<boolean>(false);
   const [product, setProduct] = useState<ProductItem | null>(null);
+  const [image, setImage] = useState<string>('');
 
   const { id } = useParams();
 
@@ -117,6 +124,7 @@ const ProductPage = () => {
       const targetElement = data.products.find((el) => Number(id) === el.id);
       if (targetElement) {
         setProduct(targetElement);
+        setImage(targetElement.thumbnail);
       } else {
         setProduct(null);
       }
@@ -138,17 +146,27 @@ const ProductPage = () => {
         </Typography>
       </BreadCrumbs>
       <ProductContent>
-        <ImageList cols={1} rowHeight={100} sx={{ height: '400px' }}>
+        <ImageList
+          cols={1}
+          rowHeight={100}
+          sx={{
+            '&::-webkit-scrollbar': {
+              width: 0,
+            },
+            height: '400px',
+            marginRight: '5px',
+          }}
+        >
           {product.images.map((el, i) => {
             return (
               <ThumbnailWrapper key={i}>
-                <Thumbnail src={product.images[i]} />
+                <Thumbnail src={product.images[i]} onClick={() => setImage(product.images[i])} />
               </ThumbnailWrapper>
             );
           })}
         </ImageList>
         <ImageWrapper>
-          <MainImage alt="product photo" src={product.thumbnail} />
+          <MainImage alt="product photo" src={image} />
         </ImageWrapper>
         <ProductText>
           <Typography variant="h5" fontWeight={600} textAlign="center">
@@ -161,30 +179,43 @@ const ProductPage = () => {
           </Typography>
           <ProductAbout>
             <Typography>
-              Discount Percentage: {percentageFormatter.format(product.discountPercentage / 100)}
+              <Span>Discount Percentage: </Span>
+              {percentageFormatter.format(product.discountPercentage / 100)}
             </Typography>
-            <Typography>
-              Rating:{' '}
+            <Typography sx={{ display: 'flex', alignItems: 'center' }}>
+              <Span>Rating: </Span>
               <Rating name="read-only" max={5} value={product.rating} precision={0.5} readOnly />
             </Typography>
-            <Typography>Stock: {product.stock}</Typography>
-            <Typography>Brand: {product.brand}</Typography>
-            <Typography>Category: {product.category}</Typography>
+            <Typography>
+              <Span>Stock: </Span>
+              {product.stock}
+            </Typography>
+            <Typography>
+              <Span>Brand: </Span>
+              {product.brand}
+            </Typography>
+            <Typography>
+              <Span>Category: </Span>
+              {product.category}
+            </Typography>
           </ProductAbout>
-          <Typography variant="h5" fontWeight={600}>
+          <Typography variant="h5" fontWeight={600} margin="20px 0 20px 0">
             {currencyFormatter.format(product.price)}
           </Typography>
           <ButtonWrapper>
             {isProductInCart ? (
-              <IconButton onClick={() => dispatch(removeProductFromCart({ id: product.id }))}>
+              <Button
+                variant="outlined"
+                onClick={() => dispatch(removeProductFromCart({ id: product.id }))}
+              >
                 Remove from cart
-              </IconButton>
+              </Button>
             ) : (
-              <IconButton onClick={() => dispatch(addProductToCart(product))}>
+              <Button variant="outlined" onClick={() => dispatch(addProductToCart(product))}>
                 Add to cart
-              </IconButton>
+              </Button>
             )}
-            <IconButton>Buy now</IconButton>
+            <Button variant="outlined">Buy now</Button>
           </ButtonWrapper>
         </ProductText>
       </ProductContent>
