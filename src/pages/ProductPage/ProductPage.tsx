@@ -1,14 +1,6 @@
 /* eslint-disable */
 import styled from '@emotion/styled';
-import {
-  Box,
-  Breadcrumbs,
-  Button,
-  ImageList,
-  ImageListItem,
-  Rating,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Rating, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import data from 'data';
@@ -19,6 +11,8 @@ import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { addProductToCart, removeProductFromCart } from 'handlers/cartSlice';
 import currencyFormatter from 'helpers/currencyFormatter';
 import percentageFormatter from 'helpers/percentageFormatter';
+import BreadCrumbs from 'components/Breadcrumbs';
+import Gallery from 'components/Gallery';
 
 const PageContent = styled(Box)(() => ({
   margin: '10px auto',
@@ -26,22 +20,7 @@ const PageContent = styled(Box)(() => ({
   flex: '1 1 auto',
   flexDirection: 'column',
   justifyContent: 'center',
-  alignItems: 'space-around',
-}));
-
-const BreadCrumbs = styled(Breadcrumbs)(() => ({
-  display: 'flex',
-  justifyContent: 'center',
   alignItems: 'center',
-  marginBottom: '20px',
-}));
-
-const MenuLink = styled(Link)(() => ({
-  fontWeight: '500',
-  fontSize: '1.2rem',
-  textDecoration: 'none',
-  color: 'orange',
-  cursor: 'pointer',
 }));
 
 const ProductContent = styled(Box)(() => ({
@@ -49,37 +28,7 @@ const ProductContent = styled(Box)(() => ({
   backgroundColor: 'white',
   padding: '20px',
   borderRadius: '5px',
-}));
-
-const ThumbnailWrapper: FC<ComponentWithChildren> = styled(ImageListItem)(() => ({
-  height: '100px',
-  width: '100px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: 'white',
-  border: '1px solid grey',
-}));
-
-const Thumbnail = styled('img')(() => ({
-  width: '100%',
-  height: 'auto',
-  cursor: 'pointer',
-}));
-
-const ImageWrapper = styled(Box)(() => ({
-  width: '400px',
-  height: '400px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: 'white',
-  border: '1px solid grey',
-}));
-
-const MainImage = styled('img')(() => ({
-  width: '100%',
-  height: 'auto',
+  maxWidth: '80%',
 }));
 
 const ProductText = styled(Box)(() => ({
@@ -92,7 +41,7 @@ const ProductText = styled(Box)(() => ({
 const ProductAbout = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'start',
+  alignItems: 'flex-start',
 }));
 
 const Span = styled('span')(() => ({
@@ -110,7 +59,6 @@ const ProductPage = () => {
   const { cartItems } = useAppSelector((state) => state.cart);
   const [isProductInCart, setIsProductInCart] = useState<boolean>(false);
   const [product, setProduct] = useState<ProductItem | null>(null);
-  const [image, setImage] = useState<string>('');
 
   const { id } = useParams();
 
@@ -124,7 +72,6 @@ const ProductPage = () => {
       const targetElement = data.products.find((el) => Number(id) === el.id);
       if (targetElement) {
         setProduct(targetElement);
-        setImage(targetElement.thumbnail);
       } else {
         setProduct(null);
       }
@@ -137,39 +84,11 @@ const ProductPage = () => {
 
   return (
     <PageContent>
-      <BreadCrumbs>
-        <MenuLink to="/product-details/1">Store</MenuLink>
-        <MenuLink to="/product-details/2">{product.category}</MenuLink>
-        <MenuLink to="/product-details/3">{product.brand}</MenuLink>
-        <Typography sx={{ color: 'white', fontWeight: '500', fontSize: '1.2rem' }}>
-          {product.title}
-        </Typography>
-      </BreadCrumbs>
+      <BreadCrumbs title={product.title} brand={product.brand} category={product.category} />
       <ProductContent>
-        <ImageList
-          cols={1}
-          rowHeight={100}
-          sx={{
-            '&::-webkit-scrollbar': {
-              width: 0,
-            },
-            height: '400px',
-            marginRight: '5px',
-          }}
-        >
-          {product.images.map((el, i) => {
-            return (
-              <ThumbnailWrapper key={i}>
-                <Thumbnail src={product.images[i]} onClick={() => setImage(product.images[i])} />
-              </ThumbnailWrapper>
-            );
-          })}
-        </ImageList>
-        <ImageWrapper>
-          <MainImage alt="product photo" src={image} />
-        </ImageWrapper>
+        <Gallery images={product.images} thumbnail={product.thumbnail} />
         <ProductText>
-          <Typography variant="h5" fontWeight={600} textAlign="center">
+          <Typography variant="h5" fontWeight={600} textAlign="center" textTransform="capitalize">
             {product.title}
           </Typography>
           <Typography
