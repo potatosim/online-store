@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useLayoutEffect, useState } from 'react';
 
 import { Box } from '@mui/material';
-import CartItem from 'pages/CartPage/CartComponents/CartItem';
-import { ICartItem } from 'types/CartItem';
+import { CartItem } from 'types/CartItem';
+import CartItemCard from 'pages/CartPage/CartComponents/CartItemCard';
 import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper/Paper';
 import TextField from '@mui/material/TextField';
@@ -14,7 +14,7 @@ import { useSearchParams } from 'react-router-dom';
 import styles from './CartItems.module.scss';
 
 interface CartItemsProps {
-  cartItems: ICartItem[];
+  cartItems: CartItem[];
 }
 
 enum CartPageQueryParams {
@@ -109,7 +109,7 @@ const CartItems: FC<CartItemsProps> = ({ cartItems }) => {
       </Box>
       <Box className={styles.cartItemsWrapper}>
         {itemsToShow.map((cartItem, i) => (
-          <CartItem index={cartItems.indexOf(cartItem) + 1} key={i} cartItem={cartItem} />
+          <CartItemCard index={cartItems.indexOf(cartItem) + 1} key={i} cartItem={cartItem} />
         ))}
       </Box>
     </Box>

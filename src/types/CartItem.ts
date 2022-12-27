@@ -1,6 +1,6 @@
 import { ProductItem } from './ProductItem';
 
-export interface ICartItem extends ProductItem {
+export interface CartItem extends ProductItem {
   count: number;
   productsTotalPrice: number;
 }

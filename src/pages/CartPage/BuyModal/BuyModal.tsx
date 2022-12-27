@@ -23,6 +23,7 @@ const BuyModal = () => {
 
   const handleClose = () => {
     dispatch(setIsBuyNow(false));
+    setBuyModalStep(BuyModalStep.PersonalInformation);
   };
 
   const getFormComponent = () => {

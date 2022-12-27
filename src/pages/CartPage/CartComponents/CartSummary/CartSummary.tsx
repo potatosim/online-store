@@ -10,36 +10,32 @@ import currencyFormatter from 'helpers/currencyFormatter';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 
 import styles from './CartSummary.module.scss';
-import { setIsBuyNow } from 'handlers/cartSlice';
+import { addPromoCode, removePromoCode, setIsBuyNow } from 'handlers/cartSlice';
 
-const promoCodes: PromoCode[] = [
+const currentPromoCodes: PromoCode[] = [
   { name: 'hanna', discount: 0.1 },
   { name: 'leon', discount: 0.1 },
 ];
 
-
 const CartSummary = () => {
-  const { totalPrice, totalCount } = useAppSelector((state) => state.cart);
+  const { totalPrice, totalCount, promoCodes } = useAppSelector((state) => state.cart);
   const [promo, setPromo] = useState('');
   const [matchedPromo, setMatchedPromo] = useState<PromoCode | null>(null);
-  const [addedPromoCodes, setAddedPromoCodes] = useState<PromoCode[]>([]);
   const [error, setError] = useState<string>('');
   const [discountPrice, setDiscountPrice] = useState<number | null>(null);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (addedPromoCodes.length) {
-      setDiscountPrice(
-        totalPrice * (1 - addedPromoCodes.reduce((acc, cur) => acc + cur.discount, 0)),
-      );
+    if (promoCodes.length) {
+      setDiscountPrice(totalPrice * (1 - promoCodes.reduce((acc, cur) => acc + cur.discount, 0)));
     } else {
       setDiscountPrice(null);
     }
-  }, [addedPromoCodes, totalPrice]);
+  }, [promoCodes, totalPrice]);
 
   useEffect(() => {
-    const matched = promoCodes.filter((item) => item.name === promo.toLowerCase());
-    const isAddedPromo = addedPromoCodes.some((addedPromo) => addedPromo.name === promo);
+    const matched = currentPromoCodes.filter((item) => item.name === promo.toLowerCase());
+    const isAddedPromo = promoCodes.some((addedPromo) => addedPromo.name === promo);
     if (matched.length && !isAddedPromo) {
       setMatchedPromo(matched[0]);
     } else {
@@ -58,16 +54,14 @@ const CartSummary = () => {
 
   const handleAddPromoCode = () => {
     if (matchedPromo) {
-      setAddedPromoCodes([...addedPromoCodes, matchedPromo]);
+      dispatch(addPromoCode(matchedPromo));
       setPromo('');
       setMatchedPromo(null);
     }
   };
 
   const handleDeletePromoCode = (promoCode: PromoCode) => {
-    setAddedPromoCodes(
-      addedPromoCodes.filter((addedPromoCode) => promoCode.name !== addedPromoCode.name),
-    );
+    dispatch(removePromoCode(promoCode));
   };
 
   return (
@@ -88,7 +82,7 @@ const CartSummary = () => {
         {discountPrice && (
           <Typography variant="h4">{currencyFormatter.format(discountPrice)}</Typography>
         )}
-        <AddedPromoCodes promoCodes={addedPromoCodes} onDeleteClick={handleDeletePromoCode} />
+        <AddedPromoCodes promoCodes={promoCodes} onDeleteClick={handleDeletePromoCode} />
         <TextField
           color="warning"
           label="Enter promo code"
@@ -108,7 +102,12 @@ const CartSummary = () => {
           Try promo codes: 'HANNA' or 'LEON'
         </Typography>
         {matchedPromo && <AddPromoCode promoCode={matchedPromo} onAddClick={handleAddPromoCode} />}
-        <Button onClick={() => dispatch(setIsBuyNow(true))} color="warning" size="large" sx={{ fontSize: '1.5rem' }}>
+        <Button
+          onClick={() => dispatch(setIsBuyNow(true))}
+          color="warning"
+          size="large"
+          sx={{ fontSize: '1.5rem' }}
+        >
           Buy now
         </Button>
       </CardContent>

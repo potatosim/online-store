@@ -1,31 +1,29 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { ICartItem } from 'types/CartItem';
-import { LocalStorageKeys } from './../enums/LocalStorageKeys';
+import { CartItem } from 'types/CartItem';
 import { ProductItem } from 'types/ProductItem';
+import { PromoCode } from 'types/PromoCode';
+import {
+  getCartItemsFromStorage,
+  getPromoCodesFromStorage,
+  getTotalCount,
+  getTotalPrice,
+} from 'helpers/getCartStateFromStorage';
+import { setCartItemsToStorage, setPromoCodesToStorage } from 'helpers/localStorageHelpers';
 
 export interface CartState {
-  cartItems: ICartItem[];
+  cartItems: CartItem[];
   totalPrice: number;
   totalCount: number;
   isBuyNow: boolean;
+  promoCodes: PromoCode[];
 }
 
-const getTotalPrice = (cartItems: ICartItem[]): number => {
-  return cartItems.reduce((acc, cur) => acc + cur.price * cur.count, 0);
-};
-
-const getTotalCount = (cartItems: ICartItem[]): number => {
-  return cartItems.reduce((acc, cur) => acc + cur.count, 0);
-};
-
-const dataFromStorage =
-  (JSON.parse(localStorage.getItem(LocalStorageKeys.CartItems) as string) as ICartItem[]) || [];
-
 const initialState: CartState = {
-  cartItems: dataFromStorage,
-  totalPrice: getTotalPrice(dataFromStorage),
-  totalCount: getTotalCount(dataFromStorage),
+  cartItems: getCartItemsFromStorage(),
+  totalPrice: getTotalPrice(getCartItemsFromStorage()),
+  totalCount: getTotalCount(getCartItemsFromStorage()),
+  promoCodes: getPromoCodesFromStorage(),
   isBuyNow: false,
 };
 
@@ -44,7 +42,7 @@ const cartSlice = createSlice({
           state.totalCount += 1;
           cartItem.productsTotalPrice += cartItem.price;
         }
-        localStorage.setItem(LocalStorageKeys.CartItems, JSON.stringify(state.cartItems));
+        setCartItemsToStorage(state.cartItems);
       }
     },
     decrementCount(state, { payload }: PayloadAction<{ id: number }>) {
@@ -57,20 +55,20 @@ const cartSlice = createSlice({
         if (cartItem.count === 0) {
           state.cartItems = state.cartItems.filter((item) => item.id !== payload.id);
         }
-        localStorage.setItem(LocalStorageKeys.CartItems, JSON.stringify(state.cartItems));
+        setCartItemsToStorage(state.cartItems);
       }
     },
     addProductToCart(state, { payload }: PayloadAction<ProductItem>) {
       state.cartItems.push({ ...payload, count: 1, productsTotalPrice: payload.price });
       state.totalPrice += payload.price;
       state.totalCount += 1;
-      localStorage.setItem(LocalStorageKeys.CartItems, JSON.stringify(state.cartItems));
+      setCartItemsToStorage(state.cartItems);
     },
     removeProductFromCart(state, { payload }: PayloadAction<{ id: number }>) {
       state.cartItems = state.cartItems.filter((item) => item.id !== payload.id);
       state.totalPrice = getTotalPrice(state.cartItems);
       state.totalCount = getTotalCount(state.cartItems);
-      localStorage.setItem(LocalStorageKeys.CartItems, JSON.stringify(state.cartItems));
+      setCartItemsToStorage(state.cartItems);
     },
     setIsBuyNow(state, { payload }: PayloadAction<boolean>) {
       state.isBuyNow = payload;
@@ -79,7 +77,17 @@ const cartSlice = createSlice({
       state.totalCount = 0;
       state.totalPrice = 0;
       state.cartItems = [];
-      localStorage.setItem(LocalStorageKeys.CartItems, JSON.stringify(state.cartItems));
+      state.promoCodes = [];
+      setCartItemsToStorage(state.cartItems);
+      setPromoCodesToStorage(state.promoCodes);
+    },
+    addPromoCode(state, { payload }: PayloadAction<PromoCode>) {
+      state.promoCodes.push(payload);
+      setPromoCodesToStorage(state.promoCodes);
+    },
+    removePromoCode(state, { payload }: PayloadAction<PromoCode>) {
+      state.promoCodes = state.promoCodes.filter((promoCode) => promoCode.name !== payload.name);
+      setPromoCodesToStorage(state.promoCodes);
     },
   },
 });
@@ -91,6 +99,8 @@ export const {
   removeProductFromCart,
   setIsBuyNow,
   resetCartState,
+  addPromoCode,
+  removePromoCode,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

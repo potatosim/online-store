@@ -21,7 +21,7 @@ const PersonalInformationForm: FC<PersonalInformationProps> = ({ onNextClick }) 
     handleSubmit,
   } = useForm<PersonalInformationValues>({
     resolver: zodResolver(personalInformationSchema),
-    mode: 'onBlur',
+    mode: 'onTouched',
   });
 
   const onSubmit: SubmitHandler<PersonalInformationValues> = () => {
