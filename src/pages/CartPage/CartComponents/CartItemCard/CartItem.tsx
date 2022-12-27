@@ -16,7 +16,7 @@ import Badge from '@mui/material/Badge';
 import Card from '@mui/material/Card';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { ICartItem } from 'types/CartItem';
+import { CartItem } from 'types/CartItem';
 import ListItemButton from '@mui/material/ListItemButton/ListItemButton';
 import ListItemText from '@mui/material/ListItemText/ListItemText';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
@@ -27,11 +27,11 @@ import { useAppDispatch } from 'hooks/reduxHooks';
 import styles from './CartItem.module.scss';
 
 interface CartItemProps {
-  cartItem: ICartItem;
+  cartItem: CartItem;
   index: number;
 }
 
-const CartItem: FC<CartItemProps> = ({ cartItem, index }) => {
+const CartItemCard: FC<CartItemProps> = ({ cartItem, index }) => {
   const {
     title,
     description,
@@ -97,4 +97,4 @@ const CartItem: FC<CartItemProps> = ({ cartItem, index }) => {
   );
 };
 
-export default React.memo(CartItem);
+export default React.memo(CartItemCard);

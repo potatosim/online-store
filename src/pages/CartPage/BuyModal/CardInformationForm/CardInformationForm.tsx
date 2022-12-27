@@ -15,6 +15,7 @@ import { getFormattedCardCode } from 'helpers/getFormattedCardCode';
 import { getFormattedCardNumber } from 'helpers/getFormattedCardNumber';
 import { useAppDispatch } from 'hooks/reduxHooks';
 import { resetCartState } from 'handlers/cartSlice';
+import { registerWithSetValue } from 'helpers/registerWithSetValue';
 
 interface CardInformationProps {
   onSubmitClick: () => void;
@@ -50,7 +51,7 @@ const CardInformationForm: FC<CardInformationProps> = ({ onSubmitClick }) => {
     setValue,
   } = useForm<CardInformationValues>({
     resolver: zodResolver(cardInformationSchema),
-    mode: 'onBlur',
+    mode: 'onTouched',
   });
 
   const onSubmit: SubmitHandler<CardInformationValues> = () => {
@@ -74,11 +75,13 @@ const CardInformationForm: FC<CardInformationProps> = ({ onSubmitClick }) => {
             endAdornment: paymentSystem,
           }}
           className={styles.cardNumber}
-          {...register(FormNames.CardNumber, {
-            onChange(e: React.ChangeEvent<HTMLInputElement>) {
-              const cardNumber = getFormattedCardNumber(e.target.value);
-              setValue(FormNames.CardNumber, cardNumber);
-              setPaymentSystem(getPaymentSystemComponent(cardNumber[0]));
+          {...registerWithSetValue({
+            name: FormNames.CardNumber,
+            register,
+            setValue,
+            formatterFunction: getFormattedCardNumber,
+            callback: (value) => {
+              setPaymentSystem(getPaymentSystemComponent(value[0]));
             },
           })}
         />
@@ -88,10 +91,11 @@ const CardInformationForm: FC<CardInformationProps> = ({ onSubmitClick }) => {
           error={!!errors?.cardDate?.message}
           helperText={errors?.cardDate?.message}
           className={styles.cardDate}
-          {...register(FormNames.CardDate, {
-            onChange(e: React.ChangeEvent<HTMLInputElement>) {
-              setValue(FormNames.CardDate, getFormattedCardDate(e.target.value));
-            },
+          {...registerWithSetValue({
+            name: FormNames.CardDate,
+            register,
+            setValue,
+            formatterFunction: getFormattedCardDate,
           })}
         />
         <TextField
@@ -100,10 +104,11 @@ const CardInformationForm: FC<CardInformationProps> = ({ onSubmitClick }) => {
           error={!!errors?.cardCode?.message}
           helperText={errors?.cardCode?.message}
           className={styles.cardCode}
-          {...register(FormNames.CardCode, {
-            onChange(e: React.ChangeEvent<HTMLInputElement>) {
-              setValue(FormNames.CardCode, getFormattedCardCode(e.target.value));
-            },
+          {...registerWithSetValue({
+            name: FormNames.CardCode,
+            register,
+            setValue,
+            formatterFunction: getFormattedCardCode,
           })}
         />
         <Button className={styles.submitButton} type="submit" variant="outlined">
