@@ -12,9 +12,12 @@ const Thumbnail = styled('img')<
   cursor: 'pointer',
   width: '100%',
   flex: '1 1 auto',
+  transition: '1s',
   border: isCurrent ? '4px solid rgb(255, 166, 0)' : '2px solid transparent',
   '&:hover': {
-    ...(!isCurrent ? { border: '4px solid rgba(255, 166, 0, 0.6)', transform: 'scale(0.8' } : {}),
+    ...(!isCurrent
+      ? { border: '4px solid rgba(255, 166, 0, 0.6)', transform: 'scale(0.9)', transition: '1s' }
+      : {}),
   },
 }));
 
