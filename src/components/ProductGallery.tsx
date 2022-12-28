@@ -12,11 +12,11 @@ const Thumbnail = styled('img')<
   cursor: 'pointer',
   width: '100%',
   flex: '1 1 auto',
-  borderBottom: isCurrent ? '2px solid blue' : '2px solid transparent',
-  '&:hover': { ...(!isCurrent ? { borderBottom: '2px solid red', transform: 'scale(0.8)' } : {}) },
+  border: isCurrent ? '4px solid rgb(255, 166, 0)' : '2px solid transparent',
+  '&:hover': {
+    ...(!isCurrent ? { border: '4px solid rgba(255, 166, 0, 0.6)', transform: 'scale(0.8' } : {}),
+  },
 }));
-
-//   '&:hover': { borderBottom: !isCurrent ? '2px solid red' : '' },
 
 const GalleryWrapper = styled('div')(() => ({
   display: 'grid',
@@ -30,7 +30,7 @@ interface IGalleryProps {
   thumbnail: string;
 }
 
-const Gallery = ({ images, thumbnail }: IGalleryProps) => {
+const ProductGallery = ({ images, thumbnail }: IGalleryProps) => {
   const [image, setImage] = useState<string>(thumbnail);
   useEffect(() => {
     setImage(thumbnail);
@@ -59,4 +59,4 @@ const Gallery = ({ images, thumbnail }: IGalleryProps) => {
   );
 };
 
-export default Gallery;
+export default ProductGallery;
