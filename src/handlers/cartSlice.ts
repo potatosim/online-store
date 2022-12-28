@@ -8,6 +8,7 @@ export interface CartState {
   cartItems: ICartItem[];
   totalPrice: number;
   totalCount: number;
+  isBuyNow: boolean;
 }
 
 const getTotalPrice = (cartItems: ICartItem[]): number => {
@@ -25,6 +26,7 @@ const initialState: CartState = {
   cartItems: dataFromStorage,
   totalPrice: getTotalPrice(dataFromStorage),
   totalCount: getTotalCount(dataFromStorage),
+  isBuyNow: false,
 };
 
 const cartSlice = createSlice({
@@ -70,10 +72,25 @@ const cartSlice = createSlice({
       state.totalCount = getTotalCount(state.cartItems);
       localStorage.setItem(LocalStorageKeys.CartItems, JSON.stringify(state.cartItems));
     },
+    setIsBuyNow(state, { payload }: PayloadAction<boolean>) {
+      state.isBuyNow = payload;
+    },
+    resetCartState(state) {
+      state.totalCount = 0;
+      state.totalPrice = 0;
+      state.cartItems = [];
+      localStorage.setItem(LocalStorageKeys.CartItems, JSON.stringify(state.cartItems));
+    },
   },
 });
 
-export const { incrementCount, decrementCount, addProductToCart, removeProductFromCart } =
-  cartSlice.actions;
+export const {
+  incrementCount,
+  decrementCount,
+  addProductToCart,
+  removeProductFromCart,
+  setIsBuyNow,
+  resetCartState,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

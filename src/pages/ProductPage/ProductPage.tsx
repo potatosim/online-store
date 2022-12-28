@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
-import { Box, Button } from '@mui/material';
+import { Box, Button, IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import data from 'data';
 import { ProductItem } from 'types/ProductItem';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
-import { addProductToCart, removeProductFromCart } from 'handlers/cartSlice';
+import { addProductToCart, removeProductFromCart, setIsBuyNow } from 'handlers/cartSlice';
 import BreadCrumbs from 'components/Breadcrumbs';
 import ProductGallery from 'components/ProductGallery';
 import ProductDescription from 'components/ProductDescription';
@@ -47,6 +47,8 @@ const ProductPage = () => {
 
   const { id } = useParams();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     setIsProductInCart(cartItems.some((cartItem) => cartItem.id === Number(id)));
   }, [cartItems, id]);
@@ -87,7 +89,15 @@ const ProductPage = () => {
                 Add to cart
               </Button>
             )}
-            <Button variant="outlined">Buy now</Button>
+            <IconButton
+              onClick={() => {
+                dispatch(addProductToCart(product));
+                dispatch(setIsBuyNow(true));
+                navigate('/cart');
+              }}
+            >
+              Buy now
+            </IconButton>
           </ButtonWrapper>
         </ProductText>
       </ProductContent>

@@ -7,14 +7,16 @@ import ClearIcon from '@mui/icons-material/Clear';
 import PageHeader from 'components/PageHeader';
 import { PromoCode } from 'types/PromoCode';
 import currencyFormatter from 'helpers/currencyFormatter';
-import { useAppSelector } from 'hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 
 import styles from './CartSummary.module.scss';
+import { setIsBuyNow } from 'handlers/cartSlice';
 
 const promoCodes: PromoCode[] = [
   { name: 'hanna', discount: 0.1 },
   { name: 'leon', discount: 0.1 },
 ];
+
 
 const CartSummary = () => {
   const { totalPrice, totalCount } = useAppSelector((state) => state.cart);
@@ -23,6 +25,7 @@ const CartSummary = () => {
   const [addedPromoCodes, setAddedPromoCodes] = useState<PromoCode[]>([]);
   const [error, setError] = useState<string>('');
   const [discountPrice, setDiscountPrice] = useState<number | null>(null);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (addedPromoCodes.length) {
@@ -105,7 +108,7 @@ const CartSummary = () => {
           Try promo codes: 'HANNA' or 'LEON'
         </Typography>
         {matchedPromo && <AddPromoCode promoCode={matchedPromo} onAddClick={handleAddPromoCode} />}
-        <Button color="warning" size="large" sx={{ fontSize: '1.5rem' }}>
+        <Button onClick={() => dispatch(setIsBuyNow(true))} color="warning" size="large" sx={{ fontSize: '1.5rem' }}>
           Buy now
         </Button>
       </CardContent>

@@ -46,6 +46,10 @@ const CartItems: FC<CartItemsProps> = ({ cartItems }) => {
     if (queryPage) {
       setPage(+queryPage || DEFAULT_PAGE);
     }
+
+    return () => {
+      setQuery(new URLSearchParams());
+    };
   }, []);
 
   useEffect(() => {
