@@ -24,9 +24,9 @@ type BreadCrumbsProps = Pick<ProductItem, 'category' | 'brand' | 'title'>
 const BreadCrumbs = ({ category, brand, title }: BreadCrumbsProps) => {
   return (
     <MyBreadCrumbs>
-      <MenuLink to="/product-details/1">Store</MenuLink>
-      <MenuLink to="/product-details/2">{category}</MenuLink>
-      <MenuLink to="/product-details/3">{brand}</MenuLink>
+      <MenuLink to="">Store</MenuLink>
+      <MenuLink to="">{category}</MenuLink>
+      <MenuLink to="">{brand}</MenuLink>
       <Typography sx={{ color: 'white', fontWeight: '500', fontSize: '1.2rem' }}>
         {title}
       </Typography>
