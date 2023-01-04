@@ -1,0 +1,8 @@
+.imageWrapper {
+  max-width: 300px;
+  width: 100%;
+  & > div {
+    height: 0;
+    padding-top: 60%;
+  }
+}

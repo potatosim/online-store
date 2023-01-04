@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Box, Button, IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import data from 'data';
+import data from 'data/data';
 import { ProductItem } from 'types/ProductItem';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { addProductToCart, removeProductFromCart, setIsBuyNow } from 'handlers/cartSlice';
