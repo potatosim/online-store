@@ -349,6 +349,7 @@ const StorePage = () => {
           rowGap: '1rem',
           justifyContent: 'center',
           alignItems: 'center',
+          paddingTop: '15px',
         }}
       >
         <FilterByCategory />
@@ -369,11 +370,19 @@ const StorePage = () => {
       <div
         style={{
           display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          gap: '2rem',
+          margin: '20px 10px 50px',
         }}
       >
         {filteredItems.map((item) => (
           // <StoreCard storeCardItem={item} key={item.thumbnail}></StoreCard>
-          <StoreCard storeCardItem={item} key={item.thumbnail} onClick={() => navigate(`/product-details/${item.id}`)}>
+          <StoreCard
+            storeCardItem={item}
+            key={item.thumbnail}
+            onClick={() => navigate(`/product-details/${item.id}`)}
+          >
             {item.title}
           </StoreCard>
         ))}
