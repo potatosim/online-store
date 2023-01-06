@@ -6,6 +6,7 @@ import currencyFormatter from 'helpers/currencyFormatter';
 import logo from 'static/assets/logo.png';
 import { useAppSelector } from 'hooks/reduxHooks';
 import { useNavigate } from 'react-router-dom';
+import { RoutePaths } from 'enums/RoutePaths';
 
 import styles from './Header.module.scss';
 
@@ -17,14 +18,14 @@ const Header = () => {
     // TODO: refactor this code in future (add components instead of tags and use styled())
     <header className={styles.header}>
       <div className={styles.logo}>
-        <img className={styles.logoImg} src={logo} />
+        <img className={styles.logoImg} src={logo} onClick={() => navigate('')} />
         <h2 className={styles.logoText}>Online Store</h2>
       </div>
       <p className={styles.total}>
         <span className={styles.totalText}>Cart total: </span>
         <span className={styles.totalPrice}>{currencyFormatter.format(totalPrice)}</span>
       </p>
-      <IconButton onClick={() => navigate('/cart')}>
+      <IconButton onClick={() => navigate(RoutePaths.CartPage)}>
         <Badge badgeContent={totalCount} color="warning" overlap="circular" showZero>
           <ShoppingCartIcon
             sx={{

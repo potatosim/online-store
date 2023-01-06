@@ -14,6 +14,10 @@
 
   &Img {
     width: 65px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &Text {

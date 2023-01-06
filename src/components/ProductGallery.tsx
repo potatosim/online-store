@@ -15,7 +15,7 @@ const Thumbnail = styled('img')<
   transition: '.25s all ease-in-out',
   border: isCurrent ? '4px solid rgb(255, 166, 0)' : '2px solid transparent',
   '&:hover': {
-    ...(!isCurrent ? { border: '4px solid rgba(255, 166, 0, 0.6)', transform: 'scale(0.9)' } : {}),
+    ...(!isCurrent ? { border: '4px solid rgba(255, 166, 0, 0.6)' } : {}),
   },
 }));
 

@@ -11,8 +11,8 @@ import {
   TextField,
 } from '@mui/material';
 import Filter from 'components/Filter';
-import * as categoriesData from 'data/categories';
-import * as brandsData from 'data/brands';
+import categoriesData from 'data/categories';
+import brandsData from 'data/brands';
 import {
   addBrandsFromQuery,
   addCategoriesFromQuery,
@@ -69,7 +69,7 @@ const FilterByCategory = () => {
 
   return (
     <Filter label="Category" value={categories}>
-      {categoriesData.default.map(({ name, totalCount }) => (
+      {categoriesData.map(({ name, totalCount }) => (
         <MenuItem onClick={() => handleChangeCategory(name)} key={name} value={name}>{`${name} ${
           currentCategories[name] || 0
         }/${totalCount}`}</MenuItem>
@@ -105,7 +105,7 @@ const FilterByBrand = () => {
 
   return (
     <Filter label="Brand" value={brands}>
-      {brandsData.default.map(({ name, totalCount }) => (
+      {brandsData.map(({ name, totalCount }) => (
         <MenuItem onClick={() => handleChangeBrand(name)} key={name} value={name}>{`${name} ${
           currentBrands[name] || 0
         }/${totalCount}`}</MenuItem>
@@ -215,12 +215,9 @@ const FilterBySearch = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log(1);
     if (searchValue) {
-      console.log(2);
       query.set(FiltersQueryNames.Search, searchValue);
     } else {
-      console.log(3);
       query.delete(FiltersQueryNames.Search);
     }
     setQuery(query);
@@ -369,12 +366,16 @@ const StorePage = () => {
           Reset Filters
         </Button>
       </div>
-      <div>
+      <div
+        style={{
+          display: 'flex',
+        }}
+      >
         {filteredItems.map((item) => (
           // <StoreCard storeCardItem={item} key={item.thumbnail}></StoreCard>
-          <div key={item.thumbnail} onClick={() => navigate(`/product-details/${item.id}`)}>
+          <StoreCard storeCardItem={item} key={item.thumbnail} onClick={() => navigate(`/product-details/${item.id}`)}>
             {item.title}
-          </div>
+          </StoreCard>
         ))}
       </div>
     </>
