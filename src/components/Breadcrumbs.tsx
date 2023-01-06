@@ -25,13 +25,17 @@ const BreadCrumbs = ({ category, brand, title }: BreadCrumbsProps) => {
   return (
     <MyBreadCrumbs>
       <MenuLink to="">Store</MenuLink>
-      <MenuLink to="">{category}</MenuLink>
-      <MenuLink to="">{brand}</MenuLink>
-      <Typography sx={{ color: 'white', fontWeight: '500', fontSize: '1.2rem' }}>
-        {title}
+      <MenuLink to="">{capitalizeFirstLetter(category)}</MenuLink>
+      <MenuLink to="">{capitalizeFirstLetter(brand)}</MenuLink>
+      <Typography sx={{ color: 'orange', fontWeight: '500', fontSize: '1.2rem' }}>
+        {capitalizeFirstLetter(title)}
       </Typography>
     </MyBreadCrumbs>
   );
+};
+
+const capitalizeFirstLetter = (str: string): string => {
+  return str[0].toUpperCase() + str.slice(1).toLowerCase();
 };
 
 export default BreadCrumbs;

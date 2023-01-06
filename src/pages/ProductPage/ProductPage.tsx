@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Box, Button, IconButton } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import data from 'data/data';
@@ -89,15 +89,16 @@ const ProductPage = () => {
                 Add to cart
               </Button>
             )}
-            <IconButton
+            <Button
               onClick={() => {
                 dispatch(addProductToCart(product));
                 dispatch(setIsBuyNow(true));
                 navigate('/cart');
               }}
+              variant="outlined"
             >
               Buy now
-            </IconButton>
+            </Button>
           </ButtonWrapper>
         </ProductText>
       </ProductContent>

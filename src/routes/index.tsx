@@ -5,15 +5,16 @@ import ProductPage from 'pages/ProductPage';
 import StorePage from 'pages/StorePage';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { RoutePaths } from 'enums/RoutePaths';
 
 const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route path="cart" element={<CartPage />} />
+        <Route path={RoutePaths.CartPage} element={<CartPage />} />
         <Route index element={<StorePage />} />
-        <Route path="*" element={<NotFoundPage />} />
-        <Route path="/product-details/:id" element={<ProductPage />} />
+        <Route path={RoutePaths.NotFoundPage} element={<NotFoundPage />} />
+        <Route path={`/${RoutePaths.ProductPage}/:id`} element={<ProductPage />} />
       </Route>
     </Routes>
   );

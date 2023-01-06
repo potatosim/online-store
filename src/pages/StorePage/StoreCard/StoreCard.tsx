@@ -8,6 +8,9 @@ import styles from './StoreCard.module.scss';
 
 interface StoreItemProps {
   storeCardItem: ProductItem;
+  children: string;
+  key: string;
+  onClick: () => void;
 }
 
 const StoreCard: FC<StoreItemProps> = ({ storeCardItem }) => {
