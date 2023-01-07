@@ -1,31 +1,45 @@
 import styled from '@emotion/styled';
-import { Button, Card, CardActions, CardContent, CardMedia, Rating, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Rating,
+  Typography,
+} from '@mui/material';
 import Paper from '@mui/material/Paper/Paper';
+import { RoutePaths } from 'enums/RoutePaths';
+import { addProductToCart, removeProductFromCart } from 'handlers/cartSlice';
 import currencyFormatter from 'helpers/currencyFormatter';
 import percentageFormatter from 'helpers/percentageFormatter';
+import { useAppDispatch } from 'hooks/reduxHooks';
 import React, { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ProductItem } from 'types/ProductItem';
 
 import styles from './StoreCard.module.scss';
 
 interface StoreItemProps {
   storeCardItem: ProductItem;
-  children: string;
-  key: string;
-  onClick: () => void;
+  inCart: boolean;
 }
 
-const StoreCard: FC<StoreItemProps> = ({ storeCardItem }) => {
-  const { brand, category, discountPercentage, price, thumbnail, rating, stock } = storeCardItem;
+const Text = styled(Typography)`
+  margin: 0;
+  font-size: 14px;
+`;
 
-  const Text = styled(Typography)`
-    margin: 0;
-    font-size: 14px;
-  `;
+const Span = styled('span')`
+  font-weight: 700;
+`;
 
-  const Span = styled('span')`
-    font-weight: 700;
-  `;
+const StoreCard: FC<StoreItemProps> = ({ storeCardItem, inCart }) => {
+  const { brand, category, discountPercentage, price, thumbnail, rating, stock, id } =
+    storeCardItem;
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   return (
     <Card
@@ -34,13 +48,12 @@ const StoreCard: FC<StoreItemProps> = ({ storeCardItem }) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width: '250px',
-        height: '350px',
         boxShadow: '2px 2px 5px grey',
+        pb: 2,
       }}
     >
       <Paper elevation={12} className={styles.imageWrapper}>
-        <CardMedia className={styles.imageWrapper} image={thumbnail} />
+        <CardMedia image={thumbnail} />
       </Paper>
       <CardContent
         sx={{
@@ -48,7 +61,7 @@ const StoreCard: FC<StoreItemProps> = ({ storeCardItem }) => {
           flexDirection: 'column',
           justifyContent: 'start',
           width: '100%',
-          padding: '15px 15px 10px',
+          padding: '1rem',
         }}
       >
         <Text>
@@ -76,11 +89,26 @@ const StoreCard: FC<StoreItemProps> = ({ storeCardItem }) => {
           padding: '0',
         }}
       >
-        <Button variant="outlined">Add to cart</Button>
-        <Button variant="outlined">Details</Button>
+        {inCart ? (
+          <Button variant="outlined" onClick={() => dispatch(removeProductFromCart({ id }))}>
+            Remove from cart
+          </Button>
+        ) : (
+          <Button variant="outlined" onClick={() => dispatch(addProductToCart(storeCardItem))}>
+            Add to cart
+          </Button>
+        )}
+        <Button
+          variant="outlined"
+          onClick={() => {
+            navigate(`${RoutePaths.ProductPage}/${id}`);
+          }}
+        >
+          Details
+        </Button>
       </CardActions>
     </Card>
   );
 };
 
-export default StoreCard;
+export default React.memo(StoreCard);

@@ -5,6 +5,7 @@ import ComponentWithChildren from 'types/ComponentWithChildren';
 interface FilterProps extends ComponentWithChildren {
   label: string;
   value: string[];
+  className?: string;
 }
 
 const ITEM_HEIGHT = 48;
@@ -18,9 +19,9 @@ const MenuProps = {
   },
 };
 
-const Filter: FC<FilterProps> = ({ value, children, label }) => {
+const Filter: FC<FilterProps> = ({ value, children, label, className }) => {
   return (
-    <FormControl sx={{ m: 1, width: 300 }}>
+    <FormControl fullWidth className={className}>
       <InputLabel>{label}</InputLabel>
       <Select multiple value={value} input={<OutlinedInput label={label} />} MenuProps={MenuProps}>
         {children}

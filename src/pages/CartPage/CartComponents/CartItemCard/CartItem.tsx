@@ -54,7 +54,7 @@ const CartItemCard: FC<CartItemProps> = ({ cartItem, index }) => {
     <Card elevation={8} className={styles.itemWrapper}>
       <Badge badgeContent={index} color="secondary" className={styles.cardBadge}></Badge>
       <Paper elevation={12} className={styles.imageWrapper}>
-        <CardMedia className={styles.imageWrapper} image={thumbnail} />
+        <CardMedia image={thumbnail} />
       </Paper>
       <CardContent className={styles.cardContent}>
         <Typography variant="h5" fontWeight={600} textAlign="center">
