@@ -61,8 +61,7 @@ const StoreCard: FC<StoreItemProps> = ({ storeCardItem }) => {
           <Span>Price:</Span> {currencyFormatter.format(price)}
         </Text>
         <Text>
-          <Span>Discount:</Span>{' '}
-          {percentageFormatter.format(discountPercentage / 100)}
+          <Span>Discount:</Span> {percentageFormatter.format(discountPercentage / 100)}
         </Text>
         <Text sx={{ display: 'flex', alignItems: 'center' }}>
           <Span>Rating: </Span>{' '}

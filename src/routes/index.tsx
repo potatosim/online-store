@@ -10,9 +10,10 @@ import { RoutePaths } from 'enums/RoutePaths';
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route path={RoutePaths.CartPage} element={<CartPage />} />
+      <Route path={RoutePaths.Index} element={<Layout />}>
         <Route index element={<StorePage />} />
+        <Route path={RoutePaths.Store} element={<StorePage />} />
+        <Route path={RoutePaths.CartPage} element={<CartPage />} />
         <Route path={RoutePaths.NotFoundPage} element={<NotFoundPage />} />
         <Route path={`/${RoutePaths.ProductPage}/:id`} element={<ProductPage />} />
       </Route>

@@ -1,7 +1,7 @@
-/* eslint-disable */
-import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Button,
+  Drawer,
   FormControl,
   InputLabel,
   MenuItem,
@@ -37,6 +37,7 @@ import IconButton from '@mui/material/IconButton';
 import SouthEastIcon from '@mui/icons-material/SouthEast';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
 import { convertToQuery, parseQuery } from 'helpers/queryHelpers';
+import { RoutePaths } from 'enums/RoutePaths';
 
 const MIN_PRICE = 10;
 const MAX_PRICE = 1749;
@@ -295,7 +296,8 @@ const SortProducts = () => {
 
 const StorePage = () => {
   const { filteredItems } = useAppSelector((state) => state.filters);
-  const [query, setQuery] = useSearchParams();
+  // eslint-disable-next-line
+  const [_, setQuery] = useSearchParams();
   const dispatch = useAppDispatch();
   const categoryQuery = useQueryParam(FiltersQueryNames.Category);
   const brandQuery = useQueryParam(FiltersQueryNames.Brand);
@@ -307,7 +309,7 @@ const StorePage = () => {
 
   const navigate = useNavigate();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (categoryQuery) {
       const categoriesFromQuery = parseQuery(categoryQuery);
       dispatch(addCategoriesFromQuery(categoriesFromQuery));
@@ -338,35 +340,45 @@ const StorePage = () => {
     dispatch(applyFilters());
   }, []);
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
-      <div
-        style={{
-          flex: '1 1 auto',
-          width: '50%',
-          display: 'flex',
-          flexDirection: 'column',
-          rowGap: '1rem',
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingTop: '15px',
-        }}
+      <Button onClick={() => setIsOpen(true)}>Filters</Button>
+      <Drawer
+        anchor="top"
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        sx={{ display: 'flex', alignItems: 'center', width: '100%'  }}
       >
-        <FilterByCategory />
-        <FilterByBrand />
-        <FilterByPrice />
-        <FilterByStock />
-        <FilterBySearch />
-        <SortProducts />
-        <Button
-          onClick={() => {
-            dispatch(resetFilters());
-            setQuery(new URLSearchParams());
+        <div
+          style={{
+            flex: '1 1 auto',
+            width: '50%',
+            display: 'flex',
+            flexDirection: 'column',
+            rowGap: '1rem',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingTop: '15px',
           }}
         >
-          Reset Filters
-        </Button>
-      </div>
+          <FilterByCategory />
+          <FilterByBrand />
+          <FilterByPrice />
+          <FilterByStock />
+          <FilterBySearch />
+          <SortProducts />
+          <Button
+            onClick={() => {
+              dispatch(resetFilters());
+              setQuery(new URLSearchParams());
+            }}
+          >
+            Reset Filters
+          </Button>
+        </div>
+      </Drawer>
       <div
         style={{
           display: 'flex',
@@ -381,7 +393,7 @@ const StorePage = () => {
           <StoreCard
             storeCardItem={item}
             key={item.thumbnail}
-            onClick={() => navigate(`/product-details/${item.id}`)}
+            onClick={() => navigate(`/${RoutePaths.ProductPage}/${item.id}`)}
           >
             {item.title}
           </StoreCard>

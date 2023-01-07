@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { FC, useEffect, useLayoutEffect, useState } from 'react';
 
 import { Box } from '@mui/material';
@@ -39,7 +40,7 @@ const CartItems: FC<CartItemsProps> = ({ cartItems }) => {
   const queryLimit = useQueryParam(CartPageQueryParams.Limit);
   const queryPage = useQueryParam(CartPageQueryParams.Page);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (queryLimit) {
       setLimitValue(+queryLimit || DEFAULT_LIMIT);
     }
@@ -47,9 +48,6 @@ const CartItems: FC<CartItemsProps> = ({ cartItems }) => {
       setPage(+queryPage || DEFAULT_PAGE);
     }
 
-    return () => {
-      setQuery(new URLSearchParams());
-    };
   }, []);
 
   useEffect(() => {

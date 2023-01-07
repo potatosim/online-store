@@ -17,8 +17,8 @@ const Header = () => {
   return (
     // TODO: refactor this code in future (add components instead of tags and use styled())
     <header className={styles.header}>
-      <div className={styles.logo}>
-        <img className={styles.logoImg} src={logo} onClick={() => navigate('')} />
+      <div className={styles.logo} onClick={() => navigate(RoutePaths.Index)}>
+        <img className={styles.logoImg} src={logo}/>
         <h2 className={styles.logoText}>Online Store</h2>
       </div>
       <p className={styles.total}>
