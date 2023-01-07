@@ -11,13 +11,12 @@
 .logo {
   display: flex;
   align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
 
   &Img {
     width: 65px;
-
-    &:hover {
-      cursor: pointer;
-    }
   }
 
   &Text {
