@@ -1,5 +1,4 @@
-/* eslint-disable */
-import React, { FC, useEffect, useLayoutEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { Box } from '@mui/material';
 import { CartItem } from 'types/CartItem';
@@ -47,7 +46,6 @@ const CartItems: FC<CartItemsProps> = ({ cartItems }) => {
     if (queryPage) {
       setPage(+queryPage || DEFAULT_PAGE);
     }
-
   }, []);
 
   useEffect(() => {
