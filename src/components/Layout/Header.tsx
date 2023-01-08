@@ -1,43 +1,47 @@
 import { Badge } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper/Paper';
 import React from 'react';
+import { RoutePaths } from 'enums/RoutePaths';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
+import Typography from '@mui/material/Typography';
 import currencyFormatter from 'helpers/currencyFormatter';
-import logo from 'static/assets/logo.png';
+import styled from '@emotion/styled';
 import { useAppSelector } from 'hooks/reduxHooks';
 import { useNavigate } from 'react-router-dom';
-import { RoutePaths } from 'enums/RoutePaths';
 
-import styles from './Header.module.scss';
+const StyledHeader = styled(Paper)`
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const Header = () => {
   const navigate = useNavigate();
   const { totalPrice, totalCount } = useAppSelector((state) => state.cart);
 
   return (
-    // TODO: refactor this code in future (add components instead of tags and use styled())
-    <header className={styles.header}>
-      <div className={styles.logo} onClick={() => navigate(RoutePaths.Index)}>
-        <img className={styles.logoImg} src={logo}/>
-        <h2 className={styles.logoText}>Online Store</h2>
-      </div>
-      <p className={styles.total}>
-        <span className={styles.totalText}>Cart total: </span>
-        <span className={styles.totalPrice}>{currencyFormatter.format(totalPrice)}</span>
-      </p>
+    <StyledHeader elevation={16}>
+      <IconButton size="large" onClick={() => navigate(RoutePaths.Index)}>
+        <StoreMallDirectoryIcon fontSize="large" color="warning" />
+      </IconButton>
+      <Typography fontWeight={600} fontSize="1.5rem">
+        Cart total: {currencyFormatter.format(totalPrice)}
+      </Typography>
       <IconButton onClick={() => navigate(RoutePaths.CartPage)}>
         <Badge badgeContent={totalCount} color="warning" overlap="circular" showZero>
           <ShoppingCartIcon
             sx={{
-              color: 'orange',
               width: 45,
               height: 45,
-              cursor: 'pointer',
             }}
+            color="warning"
           />
         </Badge>
       </IconButton>
-    </header>
+    </StyledHeader>
   );
 };
 
