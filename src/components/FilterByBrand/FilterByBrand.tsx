@@ -42,9 +42,12 @@ const FilterByBrand = () => {
   return (
     <StyledWrapper label="Brand" value={brands}>
       {brandsData.map(({ name, totalCount }) => (
-        <MenuItem onClick={() => handleChangeBrand(name)} key={name} value={name}>{`${name} ${
-          currentBrands[name] || 0
-        }/${totalCount}`}</MenuItem>
+        <MenuItem
+          sx={{ textTransform: 'capitalize' }}
+          onClick={() => handleChangeBrand(name)}
+          key={name}
+          value={name}
+        >{`${name} ${currentBrands[name] || 0}/${totalCount}`}</MenuItem>
       ))}
     </StyledWrapper>
   );

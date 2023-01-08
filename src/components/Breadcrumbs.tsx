@@ -3,6 +3,7 @@ import { Breadcrumbs, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { ProductItem } from 'types/ProductItem';
+import capitalize from 'helpers/capitalize';
 
 const MyBreadCrumbs = styled(Breadcrumbs)(() => ({
   display: 'flex',
@@ -19,23 +20,19 @@ const MenuLink = styled(Link)(() => ({
   cursor: 'pointer',
 }));
 
-type BreadCrumbsProps = Pick<ProductItem, 'category' | 'brand' | 'title'>
+type BreadCrumbsProps = Pick<ProductItem, 'category' | 'brand' | 'title'>;
 
 const BreadCrumbs = ({ category, brand, title }: BreadCrumbsProps) => {
   return (
     <MyBreadCrumbs>
       <MenuLink to="">Store</MenuLink>
-      <MenuLink to="">{capitalizeFirstLetter(category)}</MenuLink>
-      <MenuLink to="">{capitalizeFirstLetter(brand)}</MenuLink>
+      <MenuLink to="">{capitalize(category)}</MenuLink>
+      <MenuLink to="">{capitalize(brand)}</MenuLink>
       <Typography sx={{ color: 'orange', fontWeight: '500', fontSize: '1.2rem' }}>
-        {capitalizeFirstLetter(title)}
+        {capitalize(title)}
       </Typography>
     </MyBreadCrumbs>
   );
-};
-
-const capitalizeFirstLetter = (str: string): string => {
-  return str[0].toUpperCase() + str.slice(1).toLowerCase();
 };
 
 export default BreadCrumbs;

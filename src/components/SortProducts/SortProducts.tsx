@@ -24,6 +24,8 @@ const StyledWrapper = styled('div')`
   grid-area: sort;
 `;
 
+const sortFields = [SortBy.Price, SortBy.Rating, SortBy.Stock];
+
 const SortProducts = () => {
   const { direction, field } = useAppSelector((state) => state.filters.selectedSort);
   const [query, setQuery] = useSearchParams();
@@ -70,15 +72,18 @@ const SortProducts = () => {
         <Select
           input={
             <OutlinedInput
+              sx={{ textTransform: 'capitalize' }}
               label={field || 'Sort'}
               value={field || ''}
               onChange={handleChangeField}
             />
           }
         >
-          <MenuItem value={SortBy.Price}>{SortBy.Price}</MenuItem>
-          <MenuItem value={SortBy.Stock}>{SortBy.Stock}</MenuItem>
-          <MenuItem value={SortBy.Rating}>{SortBy.Rating}</MenuItem>
+          {sortFields.map((item) => (
+            <MenuItem key={item} sx={{ textTransform: 'capitalize' }} value={item}>
+              {item}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
       <IconButton onClick={handleChangeDirection}>{renderDirectionIcon()}</IconButton>

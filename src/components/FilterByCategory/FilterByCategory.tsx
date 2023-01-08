@@ -43,9 +43,12 @@ const FilterByCategory = () => {
   return (
     <StyledWrapper label="Category" value={categories}>
       {categoriesData.map(({ name, totalCount }) => (
-        <MenuItem onClick={() => handleChangeCategory(name)} key={name} value={name}>{`${name} ${
-          currentCategories[name] || 0
-        }/${totalCount}`}</MenuItem>
+        <MenuItem
+          sx={{ textTransform: 'capitalize' }}
+          onClick={() => handleChangeCategory(name)}
+          key={name}
+          value={name}
+        >{`${name} ${currentCategories[name] || 0}/${totalCount}`}</MenuItem>
       ))}
     </StyledWrapper>
   );

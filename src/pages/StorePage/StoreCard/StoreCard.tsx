@@ -11,6 +11,7 @@ import {
 import Paper from '@mui/material/Paper/Paper';
 import { RoutePaths } from 'enums/RoutePaths';
 import { addProductToCart, removeProductFromCart } from 'handlers/cartSlice';
+import capitalize from 'helpers/capitalize';
 import currencyFormatter from 'helpers/currencyFormatter';
 import percentageFormatter from 'helpers/percentageFormatter';
 import { useAppDispatch } from 'hooks/reduxHooks';
@@ -49,7 +50,7 @@ const StoreCard: FC<StoreItemProps> = ({ storeCardItem, inCart }) => {
         flexDirection: 'column',
         alignItems: 'center',
         boxShadow: '2px 2px 5px grey',
-        pb: 2,
+        p: 2,
       }}
     >
       <Paper elevation={12} className={styles.imageWrapper}>
@@ -65,10 +66,10 @@ const StoreCard: FC<StoreItemProps> = ({ storeCardItem, inCart }) => {
         }}
       >
         <Text>
-          <Span>Category:</Span> {category}
+          <Span>Category:</Span> {capitalize(category)}
         </Text>
         <Text>
-          <Span>Brand:</Span> {brand}
+          <Span>Brand:</Span> {capitalize(brand)}
         </Text>
         <Text>
           <Span>Price:</Span> {currencyFormatter.format(price)}
