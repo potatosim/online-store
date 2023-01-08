@@ -3,8 +3,10 @@ import { applyFilters, changePrice } from 'handlers/filtersSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { useEffect, useState } from 'react';
 
+import FilterHeader from 'components/FilterHeader';
 import { FiltersQueryNames } from 'enums/FiltersQueryNames';
 import { convertToQuery } from 'helpers/queryHelpers';
+import currencyFormatter from 'helpers/currencyFormatter';
 import { getMinMaxValues } from 'handlers/getMinMaxValues';
 import { getSliderWrapper } from 'helpers/getSliderWrapper';
 import { useSearchParams } from 'react-router-dom';
@@ -43,9 +45,19 @@ const FilterByPrice = () => {
     }
   }, [filteredItems]);
 
+  const getPrice = () => {
+    const [min, max] = priceValue;
+    if (min === max) {
+      return currencyFormatter.format(min);
+    }
+    return `From - ${currencyFormatter.format(min)} To - ${currencyFormatter.format(max)}`;
+  };
   return (
     <StyledWrapper>
-      <Typography>Price</Typography>
+      <FilterHeader>
+        <Typography>Price:</Typography>
+        <Typography>{getPrice()}</Typography>
+      </FilterHeader>
       <Slider
         getAriaLabel={() => 'Price'}
         value={priceValue}

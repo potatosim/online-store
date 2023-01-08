@@ -1,4 +1,5 @@
 import { Slider, Typography } from '@mui/material';
+import FilterHeader from 'components/FilterHeader';
 import { FiltersQueryNames } from 'enums/FiltersQueryNames';
 import { changeStock, applyFilters } from 'handlers/filtersSlice';
 import { getMinMaxValues } from 'handlers/getMinMaxValues';
@@ -41,9 +42,20 @@ const FilterByStock = () => {
     }
   }, [filteredItems]);
 
+  const getStock = () => {
+    const [min, max] = stockValue;
+    if (min === max) {
+      return min;
+    }
+    return `From - ${min} To - ${max}`;
+  };
+
   return (
     <StyledWrapper>
-      <Typography>Stock</Typography>
+      <FilterHeader>
+        <Typography>Stock:</Typography>
+        <Typography>{getStock()}</Typography>
+      </FilterHeader>
       <Slider
         getAriaLabel={() => 'Stock'}
         value={stockValue}
