@@ -70,7 +70,7 @@ const CartSummary = () => {
         sx={{ display: 'flex', flexDirection: 'column', rowGap: '1rem', alignItems: 'center' }}
       >
         <PageHeader variant="h2">Summary</PageHeader>
-        <Typography variant="h4">Products:{totalCount}</Typography>
+        <Typography variant="h4">Products: {totalCount}</Typography>
         <Typography
           sx={{
             textDecoration: discountPrice ? 'line-through' : 'unset',

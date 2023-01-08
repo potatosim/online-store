@@ -13,7 +13,7 @@ const Thumbnail = styled('img')<
   width: '100%',
   flex: '1 1 auto',
   transition: '.25s all ease-in-out',
-  border: isCurrent ? '4px solid rgb(255, 166, 0)' : '2px solid transparent',
+  border: isCurrent ? '4px solid rgb(255, 166, 0)' : '4px solid transparent',
   '&:hover': {
     ...(!isCurrent ? { border: '4px solid rgba(255, 166, 0, 0.6)' } : {}),
   },
@@ -53,7 +53,7 @@ const ProductGallery = ({ images, thumbnail }: IGalleryProps) => {
           return (
             <Thumbnail key={i} isCurrent={el === image} src={el} onClick={() => setImage(el)} />
           );
-        })}
+        }).reverse()}
       </ImageList>
       <CardMedia image={image} sx={{ backgroundSize: 'contain' }} />
     </GalleryWrapper>

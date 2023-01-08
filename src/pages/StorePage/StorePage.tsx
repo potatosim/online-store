@@ -18,7 +18,7 @@ import { SortBy, SortDirection } from 'enums/SortingStrategy';
 import { parseQuery } from 'helpers/queryHelpers';
 import Filters from './Filters';
 import CardsWrapper from './CardsWrapper';
-import { Button, ButtonGroup, Paper } from '@mui/material';
+import { Button, ButtonGroup, Paper, Typography } from '@mui/material';
 import { CardsLayout } from 'enums/CardsLayout';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import GridViewIcon from '@mui/icons-material/GridView';
@@ -28,9 +28,10 @@ import IconButton from '@mui/material/IconButton';
 const StorePageWrapper = styled('div')`
   flex: 1 1 auto;
   display: flex;
+  align-items: center;
   flex-direction: column;
   padding: 2rem;
-  row-gap: 2rem;
+  row-gap: 1rem;
   width: 100%;
 `;
 
@@ -99,7 +100,9 @@ const StorePage = () => {
   return (
     <StorePageWrapper>
       <HeaderWrapper>
-        <Button onClick={() => setIsOpen(true)}>Filters</Button>
+        <Button onClick={() => setIsOpen(true)} sx={{ fontSize: '1rem' }}>
+          Filters
+        </Button>
         <ButtonGroup variant="contained">
           <IconButton onClick={() => setCardsLayout(CardsLayout.First)}>
             <GridOnIcon color={isButtonActive(CardsLayout.First)} />
@@ -110,15 +113,24 @@ const StorePage = () => {
         </ButtonGroup>
       </HeaderWrapper>
       <Filters isOpen={isOpen} setIsOpen={setIsOpen} />
-      <CardsWrapper cardsLayout={cardsLayout}>
-        {filteredItems.map((item) => (
-          <StoreCard
-            inCart={cartItems.some((cartItem) => cartItem.id === Number(item.id))}
-            storeCardItem={item}
-            key={item.thumbnail}
-          />
-        ))}
-      </CardsWrapper>
+      <Paper sx={{ padding: '1rem' }}>
+        <Typography fontWeight={600} fontSize="1.5rem">
+          Found: {filteredItems.length}
+        </Typography>
+      </Paper>
+      {filteredItems.length ? (
+        <CardsWrapper cardsLayout={cardsLayout}>
+          {filteredItems.map((item) => (
+            <StoreCard
+              inCart={cartItems.some((cartItem) => cartItem.id === Number(item.id))}
+              storeCardItem={item}
+              key={item.thumbnail}
+            />
+          ))}
+        </CardsWrapper>
+      ) : (
+        <Typography variant="h2">Products not Found</Typography>
+      )}
     </StorePageWrapper>
   );
 };
