@@ -4,6 +4,7 @@ import { setIsBuyNow } from 'handlers/cartSlice';
 
 import { useAppDispatch } from 'hooks/reduxHooks';
 import { useNavigate } from 'react-router-dom';
+import { RoutePaths } from 'enums/RoutePaths';
 
 const SuccessValidation = () => {
   const [counter, setCounter] = useState<number>(5);
@@ -21,7 +22,7 @@ const SuccessValidation = () => {
   useEffect(() => {
     if (counter === 0) {
       dispatch(setIsBuyNow(false));
-      navigate('/asdasd');
+      navigate(RoutePaths.Index);
     }
   }, [counter]);
 

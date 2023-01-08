@@ -1,6 +1,6 @@
 export enum RoutePaths {
-  CartPage = 'cart',
-  ProductPage = 'product-details',
+  CartPage = '/cart',
+  ProductPage = '/product-details',
   NotFoundPage = '*',
   Index = '/',
   Store = '/store',

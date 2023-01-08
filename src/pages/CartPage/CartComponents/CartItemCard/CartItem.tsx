@@ -25,6 +25,9 @@ import percentageFormatter from 'helpers/percentageFormatter';
 import { useAppDispatch } from 'hooks/reduxHooks';
 
 import styles from './CartItem.module.scss';
+import { useNavigate } from 'react-router-dom';
+import { RoutePaths } from 'enums/RoutePaths';
+import Button from '@mui/material/Button';
 
 interface CartItemProps {
   cartItem: CartItem;
@@ -45,6 +48,7 @@ const CartItemCard: FC<CartItemProps> = ({ cartItem, index }) => {
   } = cartItem;
   const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const handleOpen = () => {
     setIsOpen(!isOpen);
@@ -65,7 +69,11 @@ const CartItemCard: FC<CartItemProps> = ({ cartItem, index }) => {
           {isOpen ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={isOpen}>
-          <Typography>{description}</Typography>
+          <Typography>
+            {description}
+            <br />
+            <Button onClick={() => navigate(`${RoutePaths.ProductPage}/${id}`)}>More...</Button>
+          </Typography>
         </Collapse>
         <Paper className={styles.productProps}>
           <Paper className={styles.descriptionItem} elevation={12}>

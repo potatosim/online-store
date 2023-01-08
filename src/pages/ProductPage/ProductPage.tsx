@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import data from 'data/data';
@@ -9,6 +9,7 @@ import { addProductToCart, removeProductFromCart, setIsBuyNow } from 'handlers/c
 import BreadCrumbs from 'components/Breadcrumbs';
 import ProductGallery from 'components/ProductGallery';
 import ProductDescription from 'components/ProductDescription';
+import { RoutePaths } from 'enums/RoutePaths';
 
 const PageContent = styled(Box)(() => ({
   margin: '10px auto',
@@ -66,7 +67,7 @@ const ProductPage = () => {
   }, [id]);
 
   if (!product) {
-    return <div>Product not found</div>;
+    return <Typography fontWeight={600} variant='h2'>Product not found</Typography>;
   }
 
   return (
@@ -91,9 +92,11 @@ const ProductPage = () => {
             )}
             <Button
               onClick={() => {
-                dispatch(addProductToCart(product));
+                if (!isProductInCart) {
+                  dispatch(addProductToCart(product));
+                }
                 dispatch(setIsBuyNow(true));
-                navigate('/cart');
+                navigate(RoutePaths.CartPage);
               }}
               variant="outlined"
             >

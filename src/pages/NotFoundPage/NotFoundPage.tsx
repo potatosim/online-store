@@ -5,6 +5,7 @@ import SentimentVeryDissatisfiedOutlinedIcon from '@mui/icons-material/Sentiment
 import { useNavigate } from 'react-router-dom';
 import styles from './NotFoundPage.module.scss';
 import PageHeader from 'components/PageHeader';
+import { RoutePaths } from 'enums/RoutePaths';
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
@@ -14,21 +15,14 @@ const NotFoundPage = () => {
         <PageHeader fontWeight={500} fontSize="10rem" variant="h1">
           404
         </PageHeader>
-        <Typography
-          variant="h2"
-          fontSize="5rem"
-          fontWeight={500}
-          sx={{
-            color: 'white',
-          }}
-        >
+        <Typography variant="h2" fontSize="5rem" fontWeight={500}>
           Page n
           <SentimentVeryDissatisfiedOutlinedIcon style={{ minWidth: '3rem', minHeight: '3rem' }} />t
           found
         </Typography>
       </div>
       <Button
-        onClick={() => navigate('/')}
+        onClick={() => navigate(RoutePaths.Index)}
         variant="text"
         color="warning"
         size="large"

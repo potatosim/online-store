@@ -4,6 +4,8 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { ProductItem } from 'types/ProductItem';
 import capitalize from 'helpers/capitalize';
+import { RoutePaths } from 'enums/RoutePaths';
+import { FiltersQueryNames } from 'enums/FiltersQueryNames';
 
 const MyBreadCrumbs = styled(Breadcrumbs)(() => ({
   display: 'flex',
@@ -16,7 +18,6 @@ const MenuLink = styled(Link)(() => ({
   fontWeight: '500',
   fontSize: '1.2rem',
   textDecoration: 'none',
-  color: 'orange',
   cursor: 'pointer',
 }));
 
@@ -25,9 +26,13 @@ type BreadCrumbsProps = Pick<ProductItem, 'category' | 'brand' | 'title'>;
 const BreadCrumbs = ({ category, brand, title }: BreadCrumbsProps) => {
   return (
     <MyBreadCrumbs>
-      <MenuLink to="">Store</MenuLink>
-      <MenuLink to="">{capitalize(category)}</MenuLink>
-      <MenuLink to="">{capitalize(brand)}</MenuLink>
+      <MenuLink to={RoutePaths.Index}>Store</MenuLink>
+      <MenuLink to={`${RoutePaths.Index}?${FiltersQueryNames.Category}=${category.toLowerCase()}`}>
+        {capitalize(category)}
+      </MenuLink>
+      <MenuLink to={`${RoutePaths.Index}?${FiltersQueryNames.Brand}=${brand.toLowerCase()}`}>
+        {capitalize(brand)}
+      </MenuLink>
       <Typography sx={{ color: 'orange', fontWeight: '500', fontSize: '1.2rem' }}>
         {capitalize(title)}
       </Typography>
