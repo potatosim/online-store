@@ -6,4 +6,5 @@ export enum FiltersQueryNames {
   Search = '_search',
   SortDirection = '_sort-direction',
   SortField = '_sort-field',
+  View = '_view'
 }

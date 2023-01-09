@@ -1,16 +1,14 @@
+import { MAX_STOCK, MIN_STOCK, applyFilters, changeStock } from 'handlers/filtersSlice';
 import { Slider, Typography } from '@mui/material';
+import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
+import { useEffect, useState } from 'react';
+
 import FilterHeader from 'components/FilterHeader';
 import { FiltersQueryNames } from 'enums/FiltersQueryNames';
-import { changeStock, applyFilters } from 'handlers/filtersSlice';
+import { convertToQuery } from 'helpers/queryHelpers';
 import { getMinMaxValues } from 'handlers/getMinMaxValues';
 import { getSliderWrapper } from 'helpers/getSliderWrapper';
-import { convertToQuery } from 'helpers/queryHelpers';
-import { useAppSelector, useAppDispatch } from 'hooks/reduxHooks';
-import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
-const MIN_STOCK = 2;
-const MAX_STOCK = 150;
 
 const StyledWrapper = getSliderWrapper('stock');
 

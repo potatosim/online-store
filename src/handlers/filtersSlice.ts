@@ -1,8 +1,14 @@
-import { sortProductsBy } from './../helpers/sortProductsBy';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import data from 'data/data';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { SortBy, SortDirection } from 'enums/SortingStrategy';
+
 import { ProductItem } from 'types/ProductItem';
+import data from 'data/data';
+import { sortProductsBy } from './../helpers/sortProductsBy';
+
+export const MIN_PRICE = 10;
+export const MAX_PRICE = 1749;
+export const MIN_STOCK = 2;
+export const MAX_STOCK = 150;
 
 export interface FiltersState {
   selectedFilters: {
@@ -31,12 +37,12 @@ const initialState: FiltersState = {
     categories: [],
     brands: [],
     price: {
-      min: 10,
-      max: 1749,
+      min: MIN_PRICE,
+      max: MAX_PRICE,
     },
     stock: {
-      min: 2,
-      max: 150,
+      min: MIN_STOCK,
+      max: MAX_STOCK,
     },
     searchValue: '',
   },

@@ -1,5 +1,5 @@
+import { MAX_PRICE, MIN_PRICE, applyFilters, changePrice } from 'handlers/filtersSlice';
 import { Slider, Typography } from '@mui/material';
-import { applyFilters, changePrice } from 'handlers/filtersSlice';
 import { useAppDispatch, useAppSelector } from 'hooks/reduxHooks';
 import { useEffect, useState } from 'react';
 
@@ -10,9 +10,6 @@ import currencyFormatter from 'helpers/currencyFormatter';
 import { getMinMaxValues } from 'handlers/getMinMaxValues';
 import { getSliderWrapper } from 'helpers/getSliderWrapper';
 import { useSearchParams } from 'react-router-dom';
-
-const MIN_PRICE = 10;
-const MAX_PRICE = 1749;
 
 const StyledWrapper = getSliderWrapper('price');
 
