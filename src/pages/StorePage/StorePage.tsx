@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import {
   addBrandsFromQuery,
   addCategoriesFromQuery,
@@ -24,6 +24,7 @@ import GridOnIcon from '@mui/icons-material/GridOn';
 import GridViewIcon from '@mui/icons-material/GridView';
 import styled from '@emotion/styled';
 import IconButton from '@mui/material/IconButton';
+import getUpdatedUrl from 'helpers/getUpdatedUrl';
 
 const StorePageWrapper = styled('div')`
   flex: 1 1 auto;
@@ -52,8 +53,18 @@ const StorePage = () => {
   const searchQuery = useQueryParam(FiltersQueryNames.Search);
   const sortDirectionQuery = useQueryParam(FiltersQueryNames.SortDirection);
   const sortFieldQuery = useQueryParam(FiltersQueryNames.SortField);
+  const viewQuery = useQueryParam(FiltersQueryNames.View);
 
   const { cartItems } = useAppSelector((state) => state.cart);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [cardsLayout, setCardsLayout] = useState<CardsLayout>(CardsLayout.First);
+
+  useLayoutEffect(() => {
+    if (viewQuery) {
+      setCardsLayout(viewQuery as CardsLayout);
+    }
+  }, []);
 
   useEffect(() => {
     if (categoryQuery) {
@@ -83,15 +94,13 @@ const StorePage = () => {
         }),
       );
     }
+
     dispatch(applyFilters());
 
     return () => {
       dispatch(resetFilters());
     };
   }, []);
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [cardsLayout, setCardsLayout] = useState<CardsLayout>(CardsLayout.First);
 
   const isButtonActive = (btnLayout: CardsLayout) => {
     return cardsLayout === btnLayout ? 'primary' : 'disabled';
@@ -104,10 +113,20 @@ const StorePage = () => {
           Filters
         </Button>
         <ButtonGroup variant="contained">
-          <IconButton onClick={() => setCardsLayout(CardsLayout.First)}>
+          <IconButton
+            onClick={() => {
+              setCardsLayout(CardsLayout.First);
+              getUpdatedUrl(CardsLayout.First);
+            }}
+          >
             <GridOnIcon color={isButtonActive(CardsLayout.First)} />
           </IconButton>
-          <IconButton onClick={() => setCardsLayout(CardsLayout.Second)}>
+          <IconButton
+            onClick={() => {
+              setCardsLayout(CardsLayout.Second);
+              getUpdatedUrl(CardsLayout.Second);
+            }}
+          >
             <GridViewIcon color={isButtonActive(CardsLayout.Second)} />
           </IconButton>
         </ButtonGroup>

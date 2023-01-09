@@ -41,7 +41,7 @@ const StoreCard: FC<StoreItemProps> = ({ storeCardItem, inCart }) => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
+console.log('render');
   return (
     <Card
       variant="outlined"
