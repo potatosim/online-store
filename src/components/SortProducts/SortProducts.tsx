@@ -16,6 +16,7 @@ import SouthEastIcon from '@mui/icons-material/SouthEast';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled from '@emotion/styled';
+import Tooltip from '@mui/material/Tooltip/Tooltip';
 
 const StyledWrapper = styled('div')`
   display: flex;
@@ -86,7 +87,9 @@ const SortProducts = () => {
           ))}
         </Select>
       </FormControl>
-      <IconButton onClick={handleChangeDirection}>{renderDirectionIcon()}</IconButton>
+      <Tooltip title={direction === SortDirection.ASC ? 'Ascending' : 'Descending'}>
+        <IconButton onClick={handleChangeDirection}>{renderDirectionIcon()}</IconButton>
+      </Tooltip>
     </StyledWrapper>
   );
 };
