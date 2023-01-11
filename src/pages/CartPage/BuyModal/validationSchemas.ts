@@ -1,4 +1,5 @@
 import { FormNames } from 'enums/Validation';
+import checkWords from 'helpers/checkWords';
 import * as z from 'zod';
 
 enum ValidationMessages {
@@ -11,13 +12,6 @@ enum ValidationMessages {
   CardDate = 'Incorrect expiration date',
   CardCode = 'Incorrect CVV code',
 }
-
-const checkWords = (value: string, words: number, wordsLength: number) =>
-  value
-    .trim()
-    .split(' ')
-    .every((item) => item.length >= wordsLength) && value.trim().split(' ').length >= words;
-
 export const personalInformationSchema = z.object({
   [FormNames.Name]: z
     .string()

@@ -8,16 +8,16 @@ export const getCartItemsFromStorage = () => {
   );
 };
 
+export const getPromoCodesFromStorage = () => {
+  return (
+    (JSON.parse(localStorage.getItem(LocalStorageKeys.PromoCodes) as string) as PromoCode[]) || []
+  );
+};
+
 export const getTotalPrice = (cartItems: CartItem[]): number => {
   return cartItems.reduce((acc, cur) => acc + cur.price * cur.count, 0);
 };
 
 export const getTotalCount = (cartItems: CartItem[]): number => {
   return cartItems.reduce((acc, cur) => acc + cur.count, 0);
-};
-
-export const getPromoCodesFromStorage = () => {
-  return (
-    (JSON.parse(localStorage.getItem(LocalStorageKeys.PromoCodes) as string) as PromoCode[]) || []
-  );
 };
