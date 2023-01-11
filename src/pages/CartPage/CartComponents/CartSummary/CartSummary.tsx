@@ -35,7 +35,7 @@ const CartSummary = () => {
 
   useEffect(() => {
     const matched = currentPromoCodes.filter((item) => item.name === promo.toLowerCase());
-    const isAddedPromo = promoCodes.some((addedPromo) => addedPromo.name === promo);
+    const isAddedPromo = promoCodes.some((addedPromo) => addedPromo.name === promo.toLowerCase());
     if (matched.length && !isAddedPromo) {
       setMatchedPromo(matched[0]);
     } else {

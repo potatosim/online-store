@@ -93,7 +93,7 @@ const filtersSlice = createSlice({
       selectedFilters.stock.min = payload.min;
     },
     changeSearchValue({ selectedFilters }, { payload }: PayloadAction<string>) {
-      selectedFilters.searchValue = payload;
+      selectedFilters.searchValue = payload.toLowerCase();
     },
     changeSort(
       state,
