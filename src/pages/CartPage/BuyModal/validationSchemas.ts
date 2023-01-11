@@ -12,23 +12,27 @@ enum ValidationMessages {
   CardCode = 'Incorrect CVV code',
 }
 
+const checkWords = (value: string, words: number, wordsLength: number) =>
+  value
+    .trim()
+    .split(' ')
+    .every((item) => item.length >= wordsLength) && value.trim().split(' ').length >= words;
+
 export const personalInformationSchema = z.object({
   [FormNames.Name]: z
     .string()
     .min(1, { message: ValidationMessages.Required })
-    .regex(/[a-z а-я]{3,} [a-z а-я]{3,}/gim, { message: ValidationMessages.Name }),
+    .refine((value) => checkWords(value, 2, 3), { message: ValidationMessages.Name }),
   [FormNames.Phone]: z
     .string()
     .min(1, { message: ValidationMessages.Required })
-    .regex(/^\+\d{9,}/, {
+    .regex(/^\+\d{9,}$/, {
       message: ValidationMessages.PhoneNumber,
     }),
   [FormNames.Address]: z
     .string()
     .min(1, { message: ValidationMessages.Required })
-    .regex(/[a-z а-я]{5,} [a-z а-я]{5,} [a-z а-я]{5,}/, {
-      message: ValidationMessages.Address,
-    }),
+    .refine((value) => checkWords(value, 3, 5), { message: ValidationMessages.Address }),
   [FormNames.Email]: z
     .string()
     .min(1, { message: ValidationMessages.Required })
