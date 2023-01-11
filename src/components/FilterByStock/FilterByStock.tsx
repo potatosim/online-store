@@ -42,6 +42,9 @@ const FilterByStock = () => {
 
   const getStock = () => {
     const [min, max] = stockValue;
+    if ([min, max].some((item) => item === Infinity || item === -Infinity)) {
+      return 'Not Found';
+    }
     if (min === max) {
       return min;
     }

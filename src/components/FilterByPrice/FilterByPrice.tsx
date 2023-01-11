@@ -44,6 +44,9 @@ const FilterByPrice = () => {
 
   const getPrice = () => {
     const [min, max] = priceValue;
+    if ([min, max].some((item) => item === Infinity || item === -Infinity)) {
+      return 'Not Found';
+    }
     if (min === max) {
       return currencyFormatter.format(min);
     }
