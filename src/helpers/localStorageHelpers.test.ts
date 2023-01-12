@@ -59,18 +59,23 @@ const mockItemsArr = [
   },
 ];
 
-describe('should set array of items in local storage', () => {
-  test('', () => {
+const mockPromoCodes = [{ name: 'Leon', discount: 10 }];
+
+describe('local storage helper test', () => {
+  test('should set array of items in local storage', () => {
     setCartItemsToStorage(mockItemsArr);
     expect(localStorage.getItem(LocalStorageKeys.CartItems)).toEqual(JSON.stringify(mockItemsArr));
   });
-});
 
-describe('should set promo codes in local storage', () => {
-  test('', () => {
-    setPromoCodesToStorage([{name: 'Leon', discount: 10}]);
+  test('should set promo codes in local storage', () => {
+    setPromoCodesToStorage(mockPromoCodes);
     expect(localStorage.getItem(LocalStorageKeys.PromoCodes)).toEqual(
-      JSON.stringify([{ name: 'Leon', discount: 10 }]),
+      JSON.stringify(mockPromoCodes),
     );
   });
+});
+
+afterAll(() => {
+  localStorage.removeItem(LocalStorageKeys.CartItems);
+  localStorage.removeItem(LocalStorageKeys.PromoCodes);
 });
