@@ -1,4 +1,5 @@
-const capitalize = (str: string): string => {
+const capitalize = (value: string): string => {
+  const str = value.trim();
   return str[0].toUpperCase() + str.slice(1).toLowerCase();
 };
 
