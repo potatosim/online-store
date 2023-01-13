@@ -1,0 +1,35 @@
+.formWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 0.5fr;
+  grid-template-areas:
+    'cardNumber cardNumber'
+    'cardDate cardCode'
+    'submitButton submitButton';
+  gap: 1rem;
+  @media (max-width: 370px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 0.5fr;
+    grid-template-areas:
+      'cardNumber'
+      'cardDate'
+      'cardCode'
+      'submitButton';
+  }
+}
+
+.cardNumber {
+  grid-area: cardNumber;
+}
+
+.cardDate {
+  grid-area: cardDate;
+}
+
+.cardCode {
+  grid-area: cardCode;
+}
+
+.submitButton {
+  grid-area: submitButton;
+}

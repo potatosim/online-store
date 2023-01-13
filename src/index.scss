@@ -1,0 +1,21 @@
+@import '~reset-css/sass/reset';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import 'styles/variables.scss';
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+}

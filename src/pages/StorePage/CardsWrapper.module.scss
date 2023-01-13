@@ -1,0 +1,13 @@
+.mainWrapper {
+  width: 100%;
+  display: grid;
+  gap: 2rem;
+}
+
+.first {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.second {
+  grid-template-columns: 1fr 1fr;
+}

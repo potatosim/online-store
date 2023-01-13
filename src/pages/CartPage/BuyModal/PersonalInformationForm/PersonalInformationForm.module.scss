@@ -1,0 +1,22 @@
+.formWrapper {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'name phone'
+    'address email'
+    'button button';
+  @media (max-width: 460px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'name'
+      'phone'
+      'address'
+      'email'
+      'button';
+  }
+}
+
+.submitButton {
+  grid-area: button;
+}
